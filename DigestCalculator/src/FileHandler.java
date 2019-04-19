@@ -13,16 +13,12 @@ public class FileHandler {
     private List<String> ListNFiles;
     private List<FileInfo> DigestListFileInfo;
     private List<FileInfo> NFilesListFileInfo;
-    private HashMap<String, List<FileInfo>> ListaDigest;
-    private HashMap<String, List<FileInfo>> NFilesDigest;
 
     public FileHandler(String newPathToCaminho_ArqListaDigest, List<String> NewNArquivos){
         this.setCaminho_ArqListaDigest(newPathToCaminho_ArqListaDigest);
         this.setListNFiles(NewNArquivos);
-        this.setListaDigest(new HashMap<String, List<FileInfo>>());
-        this.setNFilesDigest(new HashMap<String, List<FileInfo>>());
-        this.setDigestListFileInfo(new ArrayList<FileInfo>());
-        this.setNFilesListFileInfo(new ArrayList<FileInfo>());
+        this.setDigestListFileInfo(new ArrayList<>());
+        this.setNFilesListFileInfo(new ArrayList<>());
     }
 
     public void readCaminho_ArqListaDigest(){
@@ -30,7 +26,7 @@ public class FileHandler {
         File file = new File(this.getCaminho_ArqListaDigest());
 
         if(file.exists() && file.isFile()) {
-            this.InfoArqListaDigest = new ArrayList<String>();
+            this.InfoArqListaDigest = new ArrayList<>();
 
             try {
                 this.InfoArqListaDigest = Files.readAllLines(Paths.get(this.getCaminho_ArqListaDigest()));
@@ -49,13 +45,11 @@ public class FileHandler {
                         element.addAlgortihmDigest(infos[1],infos[2]);
                         element.addAlgortihmDigest(infos[3],infos[4]);
                         this.getDigestListFileInfo().add(element);
-                        this.getListaDigest().put(infos[0], this.getDigestListFileInfo());
                     } else {
                         FileInfo element = new FileInfo(infos[0]);
                         element.setFilename(infos[0]);
                         element.addAlgortihmDigest(infos[1],infos[2]);
                         this.getDigestListFileInfo().add(element);
-                        this.getListaDigest().put(infos[0], this.getDigestListFileInfo());
                     }
                 }
             } catch (IOException e) {
@@ -71,7 +65,6 @@ public class FileHandler {
             FileInfo element = new FileInfo(this.getListNFiles().get(index));
             element.setFilename(filename);
             this.getNFilesListFileInfo().add(element);
-            this.getNFilesDigest().put(filename, this.getNFilesListFileInfo());
         }
     }
 
@@ -115,19 +108,4 @@ public class FileHandler {
         this.NFilesListFileInfo = NFilesListFileIndo;
     }
 
-    public HashMap<String, List<FileInfo>> getListaDigest() {
-        return this.ListaDigest;
-    }
-
-    public void setListaDigest(HashMap<String, List<FileInfo>> listaDigest) {
-        this.ListaDigest = listaDigest;
-    }
-
-    public HashMap<String, List<FileInfo>> getNFilesDigest() {
-        return this.NFilesDigest;
-    }
-
-    public void setNFilesDigest(HashMap<String, List<FileInfo>> NFilesDigest) {
-        this.NFilesDigest = NFilesDigest;
-    }
 }

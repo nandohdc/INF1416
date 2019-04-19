@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -62,68 +63,86 @@ public class DigestCalculator {
                     }
                     this.MyHandler.getNFilesListFileInfo().get(index).addAlgortihmDigest(this.algorithm, buf.toString());
 
-                    System.out.println(this.MyHandler.getNFilesListFileInfo().get(index).getFilename() + " " + this.algorithm + " " + this.MyHandler.getNFilesListFileInfo().get(index).getDigestByAlgorithm(this.algorithm));
+                    //System.out.println(this.MyHandler.getNFilesListFileInfo().get(index).getFilename() + " " + this.algorithm + " " + this.MyHandler.getNFilesListFileInfo().get(index).getDigestByAlgorithm(this.algorithm));
                 }
             }
         }
     }
 
-    private void CollisionDigestsCMD() {//Verifica se há entre os arqN de entradas do CMD
-        for (int index = 0; index < this.MyHandler.getNFilesListFileInfo().size() - 1; index++) {
-            for (int index2 = 0; index2 < this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).size() - 1; index2++) {
-                if (this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).getHashMapDigest().containsKey(this.algorithm)) {
-                    if (this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).getDigestByAlgorithm(this.algorithm).equals(this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index + 1).getFilename()).get(index2 + 1).getDigestByAlgorithm(this.algorithm))) {
-                        this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).setFileStatus("COLLISION");
-                        this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index + 1).getFilename()).get(index2 + 1).setFileStatus("COLLISION");
+    private String Compare(FileInfo fileInfo){
+        String[] split = fileInfo.getFilename().split("\\\\");
+        String name = split[split.length - 1];
+        for(FileInfo fileInfo2 : MyHandler.getDigestListFileInfo()) {
+            if (fileInfo2.getFilename().equals(name)) {
+                if (fileInfo2.getHashMapDigest().containsKey(this.algorithm)) {
+                    if (fileInfo.getHashMapDigest().get(this.algorithm).equals(fileInfo2.getHashMapDigest().get(this.algorithm))) {
+                        printStatus(fileInfo, "OK");
+                        return "OK";
+                    } else {
+                        printStatus(fileInfo, "NOT OK");
+                        return "NOT OK";
                     }
+                } else {
+                    fileInfo2.getHashMapDigest().put(this.algorithm, fileInfo.getHashMapDigest().get(this.algorithm));
+                    printStatus(fileInfo, "NOT FOUND");
+                    return "NOT FOUND";
                 }
             }
         }
-    }
-
-    private void CollisionDigestsListDigests() {//verificar se há colisão entre os arqN de entrada e ListadeDigests
-        for (int i = 0; i < this.MyHandler.getDigestListFileInfo().size(); i++) {
-            for (int j = 0; j < this.MyHandler.getListaDigest().get(this.MyHandler.getDigestListFileInfo().get(i).getFilename()).size(); j++) {
-                for (int k = 0; k < this.MyHandler.getNFilesListFileInfo().size(); k++) {
-                    for (int l = 0; l < this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).size(); l++) {
-                        if (this.MyHandler.getListaDigest().get(this.MyHandler.getDigestListFileInfo().get(i).getFilename()).get(j).getFilename().equals(this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).getFilename())) {
-                            if (this.MyHandler.getListaDigest().get(this.MyHandler.getDigestListFileInfo().get(i).getFilename()).get(j).getDigestByAlgorithm(this.algorithm).equals(this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).getDigestByAlgorithm(this.algorithm))) {
-                                this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).setFileStatus("OK");
-                            } else {
-                                this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).setFileStatus("NOT OK");
-                            }
-                        } else {
-                            if (this.MyHandler.getListaDigest().get(this.MyHandler.getDigestListFileInfo().get(i).getFilename()).get(j).getDigestByAlgorithm(this.algorithm).equals(this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).getDigestByAlgorithm(this.algorithm))) {
-                                this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).setFileStatus("COLLISION");
-                            } else {
-                                this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(k).getFilename()).get(l).setFileStatus("NOT FOUND");
-                            }
-                        }
-                    }
-                }
+        for (FileInfo fileInfo1 : MyHandler.getDigestListFileInfo()) {
+            if (fileInfo1.getHashMapDigest().containsKey(this.algorithm) && fileInfo1.getHashMapDigest().get(this.algorithm).equals(fileInfo.getDigestByAlgorithm(this.algorithm))) {
+                printStatus(fileInfo, "COLLISION");
+                return "COLLISION";
             }
         }
+        fileInfo.setFilename(name);
+        MyHandler.getDigestListFileInfo().add(fileInfo);
+        printStatus(fileInfo, "NOT FOUND");
+        return "NOT FOUND";
     }
 
-    private void printAllStatus(){
-        for (int index = 0; index < this.MyHandler.getNFilesListFileInfo().size(); index++) {
-            for (int index2 = 0; index2 < this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).size(); index2++) {
-                String filename = this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).getFilename();
-                String type = this.algorithm;
-                String digest = this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).getDigestByAlgorithm(this.algorithm);
-                String status = this.MyHandler.getNFilesDigest().get(this.MyHandler.getNFilesListFileInfo().get(index).getFilename()).get(index2).getFileStatus();
+    private void printStatus(FileInfo fileInfo, String status){
+        String filename = fileInfo.getFilename();
+        String type = this.algorithm;
+        String digest = fileInfo.getDigestByAlgorithm(this.algorithm);
 
-                String output = filename + " " + type + " " + digest + " " +status;
+        String output = filename + " " + type + " " + digest + " " + status;
+        System.out.println(output);
+    }
 
-                System.out.println(output);
-            }
+    private void Loop() throws IOException {
+
+        for(FileInfo fileInfo : MyHandler.getNFilesListFileInfo()){
+            Compare(fileInfo);
         }
 
+        PrintWriter writer = new PrintWriter(this.MyHandler.getCaminho_ArqListaDigest());
+
+        for(int i = 0; i < this.MyHandler.getDigestListFileInfo().size(); i++){
+            String filename = this.MyHandler.getDigestListFileInfo().get(i).getFilename();
+
+            String digests="";
+
+            for(String key: this.MyHandler.getDigestListFileInfo().get(i).getHashMapDigest().keySet()){
+                String digest = this.MyHandler.getDigestListFileInfo().get(i).getHashMapDigest().get(key);
+                digests = digests + key + " " + digest + " ";
+            }
+
+            String output = filename + " " + digests;
+
+            writer.println(output);
+
+        }
+
+        writer.close();
     }
 
     public void CompareAllDigests() {
-        this.CollisionDigestsCMD();
-        this.CollisionDigestsListDigests();
-        this.printAllStatus();
+        try {
+            Loop();
+        } catch (Exception e){
+
+        }
+
     }
 }
