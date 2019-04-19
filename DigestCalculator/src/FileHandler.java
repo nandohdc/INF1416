@@ -75,16 +75,6 @@ public class FileHandler {
         }
     }
 
-    public void writeComparison(String newDigest ){
-        try {
-            Files.write(Paths.get(this.Caminho_ArqListaDigest), newDigest.getBytes(), StandardOpenOption.CREATE);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
-    }
-
     public String getCaminho_ArqListaDigest() {
         return this.Caminho_ArqListaDigest;
     }
