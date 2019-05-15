@@ -5,6 +5,11 @@ import javax.crypto.SecretKey;
 public class Main {
 
     public static void main(String[] args) {
+        Authencation auth  = new Authencation();
+
+
+
+
         SecretKeyGen keyGen = null;
         SecretKey secretKey = null;
         keyGen = new SecretKeyGen("Fernando");

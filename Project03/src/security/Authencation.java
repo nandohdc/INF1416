@@ -87,6 +87,8 @@ public class Authencation {
         String emailField = null;
         String emailCertificate = null;
 
+        this.getX509Certificate(byteCertificate);
+
         if(this.getcertificate() != null){
             emailField = this.getcertificate().getSubjectDN().toString().split(",")[0];
             emailCertificate = emailField.split("=")[1];
