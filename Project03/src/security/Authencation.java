@@ -62,7 +62,7 @@ public class Authencation {
             InputStream certificateInputStream = new ByteArrayInputStream(byteCertificate);
             X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
             return x509Certificate;
-            
+
         } catch (CertificateException e) {
             System.err.println("[ERROR][Class: Authencation] x509Certificate not found: " + byteCertificate.toString());
             System.exit(1);
@@ -86,25 +86,15 @@ public class Authencation {
         return true;
     }
 
-    public boolean FirstValidation(String newCertificate, String newUserEmail){
-        byte[] byteCertificate = newCertificate.getBytes();
-        String emailField = null;
-        String emailCertificate = null;
+    public boolean FirstValidation(String emailCertificate, String newUserEmail){
+        if(!this.emailAuthencation(newUserEmail, emailCertificate)){
+            System.out.println("[First Validation] NOT OK -  emailCertificate: " + emailCertificate + " " + "newUserEmail: " +  newUserEmail);
+            return false;
 
-        this.getX509Certificate(byteCertificate);
-
-        if(this.getcertificate() != null){
-            emailField = this.getcertificate().getSubjectDN().toString().split(",")[0];
-            emailCertificate = emailField.split("=")[1];
-
-            if(!this.emailAuthencation(newUserEmail, emailCertificate)){
-                return false;
-            } else {
-                return true;
-            }
+        } else {
+            System.out.println("[First Validation] OK -  emailCertificate: " + emailCertificate + " " + "newUserEmail: " + newUserEmail);
+            return true;
         }
-
-        return false;
     }
 
     private String SaltGen(){
@@ -153,6 +143,7 @@ public class Authencation {
         for (String password : passwordsCombinations) {
             HashMapPassowrds.put(this.CalculateHexHashPassword(password, this.SaltGen()),password);
         }
+
 
         if(!HashMapPassowrds.containsKey(HashDBPassword)){
             return false;
