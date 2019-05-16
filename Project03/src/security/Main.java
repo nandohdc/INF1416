@@ -1,7 +1,5 @@
 package security;
 
-import com.sun.tools.javac.util.StringUtils;
-
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.security.cert.CertificateEncodingException;
@@ -56,18 +54,21 @@ public class Main {
         }
 
         if(!auth.SecondValidation(password,"nmg6Tg1kr3", "d55b0b6d862323c1f72d65552b3514716393a403")){
-            if(false){//se o contador de senha for menor que 3
+            if(auth.getPasswordsAttempts() < 3){//se o contador de senha for menor que 3
                 System.out.println("O Senha fornecida está incorreta.");
-                System.out.println("Faltam contador-1 tentativas");
-                //inserir contador de erro de senhas
+
+                auth.setPasswordsAttempts(auth.getPasswordsAttempts()+1);
+
+                System.out.println("Faltam " +  (3 - auth.getPasswordsAttempts())  +" tentativas");
             } else {
                 System.out.println("Usuário bloqueado.");
                 //voltar para primeira tela de login - email.
             }
 
         } else {//A senha está correta, devemos zerar o contador de erros e seguir para 3 etapa
-            //contador_de_erros = 0;
             System.out.println("A senha está correta!");
+
+            auth.setPasswordsAttempts(0);
 
         }
 
@@ -76,16 +77,22 @@ public class Main {
             // o processo deve contabilizar um erro de verificação da chave privada,
             // retornando para o início da terceira etapa
 
-            //criar contador de erro de chave privada
+            if (auth.getPrivateKeyAttempts() < 3){// Se o contador de erros de chave privada for menor que 3
+                System.out.println("A Chave Privada está incorreta!");
+                auth.setPrivateKeyAttempts(auth.getPrivateKeyAttempts()+1);
+                System.out.println("Faltam " +  (3 - auth.getPrivateKeyAttempts())  +" tentativas");
 
-            if (false){// Se o contador de erros de chave privada for menor que 3
-                //deve-se seguir para a primeira etapa e o acesso do usuário deve ser bloqueado por 2 minutos
             } else {
-                //Senão, incrementar contador de erros de chave de privada
+                //deve-se seguir para a primeira etapa e o acesso do usuário deve ser bloqueado por 2 minutos
+                System.out.println("Usuário bloqueado.");
+
             }
 
         } else{// Se a verificação for positiva, o processo deve permitir acesso ao sistema.
             //Entrar no sistema;
+            System.out.println("A Chave Privada está correta!");
+
+            auth.setPrivateKeyAttempts(0);
 
         }
 

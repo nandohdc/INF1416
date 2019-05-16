@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
@@ -21,12 +20,16 @@ public class Authencation {
 
     private PrivateKey privateKey;
     private PublicKey publicKey;
-    private X509Certificate x509certificate;
+
+    private int passwordsAttempts;
+    private int privateKeyAttempts;
 
     public Authencation(){
         this.setPrivateKey(null);
         this.setPublicKey(null);
-        this.setX509certificate(null);
+
+        this.setPasswordsAttempts(0);
+        this.setPrivateKeyAttempts(0);
 
     }
 
@@ -46,30 +49,24 @@ public class Authencation {
         this.publicKey = publicKey;
     }
 
-    public X509Certificate getcertificate() {
-        return x509certificate;
+
+
+    public int getPasswordsAttempts() {
+        return passwordsAttempts;
     }
 
-    public void setX509certificate(X509Certificate x509certificate) {
-        this.x509certificate = x509certificate;
+    public void setPasswordsAttempts(int passwordsAttempts) {
+        this.passwordsAttempts = passwordsAttempts;
     }
 
-
-    private X509Certificate getX509Certificate (byte[] byteCertificate){
-        CertificateFactory certificateFactory = null;
-        try {
-            certificateFactory = CertificateFactory.getInstance("X.509");
-            InputStream certificateInputStream = new ByteArrayInputStream(byteCertificate);
-            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
-            return x509Certificate;
-
-        } catch (CertificateException e) {
-            System.err.println("[ERROR][Class: Authencation] x509Certificate not found: " + byteCertificate.toString());
-            System.exit(1);
-        }
-
-        return null;
+    public int getPrivateKeyAttempts() {
+        return privateKeyAttempts;
     }
+
+    public void setPrivateKeyAttempts(int privateKeyAttempts) {
+        this.privateKeyAttempts = privateKeyAttempts;
+    }
+
 
     private boolean emailAuthencation(String userEmail, String newDBEmail){
 
@@ -95,18 +92,6 @@ public class Authencation {
             System.out.println("[First Validation] OK -  emailCertificate: " + emailCertificate + " " + "newUserEmail: " + newUserEmail);
             return true;
         }
-    }
-
-    private String SaltGen(){
-        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        SecureRandom rand = new SecureRandom();
-        StringBuffer salt = new StringBuffer(10);
-
-        for (int i = 0; i < 10; i++) {
-            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
-        }
-
-        return salt.toString();
     }
 
     private String CalculateHexHashPassword(String newPassword, String newSalt){

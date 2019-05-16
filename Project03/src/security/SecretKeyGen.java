@@ -2,19 +2,26 @@ package security;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
 public class SecretKeyGen {
 
     private String encode = null;
     private String secret = null;
+    private X509Certificate x509certificate;
 
     public SecretKeyGen(String newSecret){
         this.setSecret(newSecret);
         this.setEncode("us-ascii");
+        this.setX509certificate(null);
     }
 
     public void setEncode(String encode) {
@@ -32,6 +39,14 @@ public class SecretKeyGen {
 
     public String getSecret() {
         return this.secret;
+    }
+
+    public X509Certificate getcertificate() {
+        return x509certificate;
+    }
+
+    public void setX509certificate(X509Certificate x509certificate) {
+        this.x509certificate = x509certificate;
     }
 
     private SecureRandom SeedGen (String newSecureRandomAlgorithm, String newProvider){
@@ -69,6 +84,34 @@ public class SecretKeyGen {
         SecretKey newSecretKey = keyGenerator.generateKey();
 
         return newSecretKey;
+    }
+
+    private String SaltGen(){
+        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        SecureRandom rand = new SecureRandom();
+        StringBuffer salt = new StringBuffer(10);
+
+        for (int i = 0; i < 10; i++) {
+            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
+        }
+
+        return salt.toString();
+    }
+
+    private X509Certificate getX509Certificate (byte[] byteCertificate){
+        CertificateFactory certificateFactory = null;
+        try {
+            certificateFactory = CertificateFactory.getInstance("X.509");
+            InputStream certificateInputStream = new ByteArrayInputStream(byteCertificate);
+            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+            return x509Certificate;
+
+        } catch (CertificateException e) {
+            System.err.println("[ERROR][Class: Authencation] x509Certificate not found: " + byteCertificate.toString());
+            System.exit(1);
+        }
+
+        return null;
     }
 
 }
