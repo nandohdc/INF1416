@@ -1,15 +1,15 @@
 package security;
 
 import javax.crypto.*;
-import javax.security.cert.CertificateException;
-import javax.security.cert.X509Certificate;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.*;
+import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
@@ -56,9 +56,13 @@ public class Authencation {
 
 
     private X509Certificate getX509Certificate (byte[] byteCertificate){
+        CertificateFactory certificateFactory = null;
         try {
-            X509Certificate Certificate = X509Certificate.getInstance(byteCertificate);
-            return Certificate;
+            certificateFactory = CertificateFactory.getInstance("X.509");
+            InputStream certificateInputStream = new ByteArrayInputStream(byteCertificate);
+            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+            return x509Certificate;
+            
         } catch (CertificateException e) {
             System.err.println("[ERROR][Class: Authencation] x509Certificate not found: " + byteCertificate.toString());
             System.exit(1);
@@ -181,11 +185,18 @@ public class Authencation {
 
     private PublicKey getCertificatePublicKey (){
 
-      //  CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-        //InputStream certificateInputStream = new ByteArrayInputStream(certificateBytes);
-        //X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+        CertificateFactory certificateFactory = null;
+        try {
 
-        //return x509Certificate.getPublicKey();
+            certificateFactory = CertificateFactory.getInstance("X.509");
+            InputStream certificateInputStream = new ByteArrayInputStream(null);
+            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+            return x509Certificate.getPublicKey();
+
+        } catch (java.security.cert.CertificateException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
