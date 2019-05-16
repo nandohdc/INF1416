@@ -135,20 +135,33 @@ public class Authencation {
         return null;
     }
 
-    public boolean SecondValidation(List<String> passwordsCombinations, String HashDBPassword){
+    public boolean SecondValidation(List<String> passwordsCombinations, String SaltDBPassword,String HashDBPassword){
         Map<String,String> HashMapPassowrds = new HashMap<String,String>();
 
-        String salt = null;
-
-        for (String password : passwordsCombinations) {
-            HashMapPassowrds.put(this.CalculateHexHashPassword(password, this.SaltGen()),password);
-        }
-
-
-        if(!HashMapPassowrds.containsKey(HashDBPassword)){
+        if(SaltDBPassword == null){
+            System.err.println("[ERROR][Class: Authencation] O Salt Fornecido possui valor nulo!");
             return false;
         }
 
+        if(SaltDBPassword.length() < 10){
+            System.err.println("[ERROR][Class: Authencation] O Salt Fornecido não tem o tamanho correto! " + "Tamanho: " + SaltDBPassword.length());
+            return false;
+        }
+
+        if(passwordsCombinations.size() == 0){
+            System.err.println("[ERROR][Class: Authencation] A lista de password está vazia! " + "Tamanho: " + passwordsCombinations.size());
+            return false;
+        }
+
+        for (String password : passwordsCombinations) {
+            HashMapPassowrds.put(this.CalculateHexHashPassword(password, SaltDBPassword), password);
+        }
+
+        if(!HashMapPassowrds.containsKey(HashDBPassword)){
+            System.out.println("[Second Validation] NOT OK -> Hash not found -  HashCalculated: " + HashMapPassowrds.containsKey(HashDBPassword) + " " + "HashDBPassword: " + HashDBPassword);
+            return false;
+        }
+        System.out.println("[Second Validation] OK -  HashCalculated: " + HashMapPassowrds.containsKey(HashDBPassword)+ " " + "HashDBPassword: " + HashDBPassword);
         return true;
     }
 

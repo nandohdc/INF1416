@@ -55,8 +55,7 @@ public class Main {
             }
         }
 
-        if(!auth.SecondValidation(password,"c68350d110fd9e12d89d6e843ef78a5fea668643")){
-            System.out.println(auth.SecondValidation(password,"c68350d110fd9e12d89d6e843ef78a5fea668643"));
+        if(!auth.SecondValidation(password,"nmg6Tg1kr3", "d55b0b6d862323c1f72d65552b3514716393a403")){
             if(false){//se o contador de senha for menor que 3
                 System.out.println("O Senha fornecida está incorreta.");
                 System.out.println("Faltam contador-1 tentativas");
@@ -68,12 +67,27 @@ public class Main {
 
         } else {//A senha está correta, devemos zerar o contador de erros e seguir para 3 etapa
             //contador_de_erros = 0;
+            System.out.println("A senha está correta!");
 
         }
 
+        if(!auth.ThirdValidation(null, null)){
+            //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
+            // o processo deve contabilizar um erro de verificação da chave privada,
+            // retornando para o início da terceira etapa
 
+            //criar contador de erro de chave privada
 
+            if (false){// Se o contador de erros de chave privada for menor que 3
+                //deve-se seguir para a primeira etapa e o acesso do usuário deve ser bloqueado por 2 minutos
+            } else {
+                //Senão, incrementar contador de erros de chave de privada
+            }
 
+        } else{// Se a verificação for positiva, o processo deve permitir acesso ao sistema.
+            //Entrar no sistema;
+
+        }
 
     }
 

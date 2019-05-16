@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Tests/fake_email_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/security/Authencation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Authencation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/security/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Main.java" afterDir="false" />
@@ -19,15 +18,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/security/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="58" column="31" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
+            <state relative-caret-position="642">
+              <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#561#569#0" expanded="true" />
-                <element signature="e#864#872#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2678">
+              <caret line="163" column="117" selection-start-line="163" selection-start-column="117" selection-end-line="163" selection-end-column="117" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,18 +51,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="145" column="8" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -64,8 +61,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/Tests/fake_email_list.txt" />
-        <option value="$PROJECT_DIR$/src/security/Main.java" />
+        <option value="$PROJECT_DIR$/Tests/passwords.txt" />
         <option value="$PROJECT_DIR$/src/security/Authencation.java" />
+        <option value="$PROJECT_DIR$/src/security/Main.java" />
       </list>
     </option>
   </component>
@@ -86,11 +84,6 @@
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project03" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project03" type="462c0819:PsiDirectoryNode" />
-              <item name="Keys" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
@@ -175,7 +168,7 @@
     <frame x="0" y="23" width="1440" height="816" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19098713" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -260,18 +253,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="58" column="31" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#561#569#0" expanded="true" />
-            <element signature="e#864#872#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/passwords.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -281,8 +262,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="145" column="8" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="8" />
+        <state relative-caret-position="-2678">
+          <caret line="163" column="117" selection-start-line="163" selection-start-column="117" selection-end-line="163" selection-end-column="117" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="642">
+          <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
