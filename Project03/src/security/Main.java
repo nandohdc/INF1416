@@ -1,8 +1,7 @@
 package security;
 
-import javax.xml.bind.DatatypeConverter;
+
 import java.io.*;
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -24,16 +23,6 @@ public class Main {
             emails.add(st);
         }
 
-        file = new File("Tests/passwords.txt");
-        ArrayList<String> password = new ArrayList<String>();
-        br = new BufferedReader(new FileReader(file));
-
-        st = null;
-
-        while ((st = br.readLine()) != null) {
-            password.add(st);
-        }
-
         FileInputStream inStream = new FileInputStream("Keys/user01-x509.crt");
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         X509Certificate cert = (X509Certificate)cf.generateCertificate(inStream);
@@ -53,6 +42,15 @@ public class Main {
             }
         }
 
+        file = new File("Tests/passwords.txt");
+        ArrayList<String> password = new ArrayList<String>();
+        br = new BufferedReader(new FileReader(file));
+
+
+        while ((st = br.readLine()) != null) {
+            password.add(st);
+        }
+
         if(!auth.SecondValidation(password,"nmg6Tg1kr3", "d55b0b6d862323c1f72d65552b3514716393a403")){
             if(auth.getPasswordsAttempts() < 3){//se o contador de senha for menor que 3
                 System.out.println("O Senha fornecida está incorreta.");
@@ -69,10 +67,9 @@ public class Main {
             System.out.println("A senha está correta!");
 
             auth.setPasswordsAttempts(0);
-
         }
 
-        if(!auth.ThirdValidation(null, null)){
+        if(!auth.ThirdValidation("user01", "Keys/user01-pkcs8-des.pem", cert.getPublicKey())){
             //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
             // o processo deve contabilizar um erro de verificação da chave privada,
             // retornando para o início da terceira etapa

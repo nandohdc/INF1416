@@ -76,12 +76,6 @@ public class Authencation {
         return true;
     }
 
-    public boolean passwordAuthencation(String userPassword, String dbPassword){
-        if(!userPassword.equals(dbPassword)){
-            return false;
-        }
-        return true;
-    }
 
     public boolean FirstValidation(String emailCertificate, String newUserEmail){
         if(!this.emailAuthencation(newUserEmail, emailCertificate)){
@@ -166,24 +160,8 @@ public class Authencation {
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
         } catch (BadPaddingException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private PublicKey getCertificatePublicKey (){
-
-        CertificateFactory certificateFactory = null;
-        try {
-
-            certificateFactory = CertificateFactory.getInstance("X.509");
-            InputStream certificateInputStream = new ByteArrayInputStream(null);
-            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
-            return x509Certificate.getPublicKey();
-
-        } catch (java.security.cert.CertificateException e) {
-            e.printStackTrace();
+            System.err.println("[ERROR][Class: Authencation] Bad Padding!" );
+            return null;
         }
 
         return null;
@@ -269,7 +247,7 @@ public class Authencation {
                 byte[] pemFile = this.readPEMFromFile(PathToCertificate, cipher);
 
                 if (pemFile != null) {
-                    String pem64 = pemFile.toString();
+                    String pem64 = new String(pemFile);
                     pem64 = pem64.replace("-----BEGIN PRIVATE KEY-----\n", "");
                     pem64 = pem64.replace("-----END PRIVATE KEY-----\n", "");
 
@@ -338,19 +316,37 @@ public class Authencation {
         return false;
     }
 
-    public boolean ThirdValidation(String newSecret, String PathToCertificate){
+    public boolean ThirdValidation(String newSecret, String PathToPEM, PublicKey pbk){
 
-        this.setPrivateKey(this.getprivateKey(newSecret, PathToCertificate));
-
-        if(this.getPrivateKey()!=null){
-            this.setPublicKey(this.getCertificatePublicKey());
-            if(this.getPublicKey() != null){
-                if(this.SignRandomMessage("MD5withRSA")){
-                    return true;
-                }
-            }
+        if(newSecret == null){
+            System.err.println("[ERROR][Class: Authencation] Invalid secret!" );
+            return false;
         }
 
+        if(PathToPEM == null){
+            System.err.println("[ERROR][Class: Authencation] Invalid PathToPEM!" );
+            return false;
+        }
+
+        this.setPrivateKey(this.getprivateKey(newSecret, PathToPEM));
+
+        if(this.getPrivateKey()!=null){
+            this.setPublicKey(pbk);//this.getCertificatePublicKey(certificate)
+            if(this.getPublicKey() != null){
+                if(this.SignRandomMessage("MD5withRSA")){
+                    System.out.println("[Third Validation] OK - Signature verified!\n" + "Private Key: " + this.getPrivateKey() + "\n" + "Public Key: " + this.getPublicKey());
+                    return true;
+                } else{
+                    System.out.println("[Third Validation] NOT OK - Signature failed!");
+                    return false;
+                }
+            }
+            else{
+                System.out.println("[Third Validation] NOT OK - Invalid Public Key!");
+                return false;
+            }
+        }
+        System.out.println("[Third Validation] NOT OK - Invalid Private Key!");
         return false;
     }
 }

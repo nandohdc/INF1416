@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
@@ -109,6 +110,30 @@ public class SecretKeyGen {
         } catch (CertificateException e) {
             System.err.println("[ERROR][Class: Authencation] x509Certificate not found: " + byteCertificate.toString());
             System.exit(1);
+        }
+
+        return null;
+    }
+
+    public boolean passwordAuthencation(String userPassword, String dbPassword){
+        if(!userPassword.equals(dbPassword)){
+            return false;
+        }
+        return true;
+    }
+
+    private PublicKey getCertificatePublicKey (byte[] certificate){
+
+        CertificateFactory certificateFactory = null;
+        try {
+
+            certificateFactory = CertificateFactory.getInstance("X.509");
+            InputStream certificateInputStream = new ByteArrayInputStream(certificate);
+            X509Certificate x509Certificate = (X509Certificate) certificateFactory.generateCertificate(certificateInputStream);
+            return x509Certificate.getPublicKey();
+
+        } catch (java.security.cert.CertificateException e) {
+            e.printStackTrace();
         }
 
         return null;
