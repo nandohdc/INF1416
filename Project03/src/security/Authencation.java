@@ -21,16 +21,13 @@ public class Authencation {
     private PrivateKey privateKey;
     private PublicKey publicKey;
 
-    private int passwordsAttempts;
-    private int privateKeyAttempts;
+    private int userAttempts;
 
     public Authencation(){
         this.setPrivateKey(null);
         this.setPublicKey(null);
 
-        this.setPasswordsAttempts(0);
-        this.setPrivateKeyAttempts(0);
-
+        this.setUserAttempts(0);
     }
 
     public PrivateKey getPrivateKey() {
@@ -49,23 +46,15 @@ public class Authencation {
         this.publicKey = publicKey;
     }
 
-
-
-    public int getPasswordsAttempts() {
-        return passwordsAttempts;
+    public int getUserAttempts() {
+        return userAttempts;
     }
 
-    public void setPasswordsAttempts(int passwordsAttempts) {
-        this.passwordsAttempts = passwordsAttempts;
+    public void setUserAttempts(int userAttempts) {
+        this.userAttempts = userAttempts;
     }
 
-    public int getPrivateKeyAttempts() {
-        return privateKeyAttempts;
-    }
 
-    public void setPrivateKeyAttempts(int privateKeyAttempts) {
-        this.privateKeyAttempts = privateKeyAttempts;
-    }
 
 
     private boolean emailAuthencation(String userEmail, String newDBEmail){

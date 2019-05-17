@@ -45,18 +45,19 @@ public class Main {
 
         if(!auth.FirstValidation((cert.getSubjectDN().toString().split(",")[0].split("=")[1]).trim(), emails.get(0))){
             System.out.println("O e-mail fornecido está incorreto.");
+            auth.setUserAttempts(0);
         } else {
 
-            if(false){//Se o usuário estiver bloqueado.
+            if(auth.getUserAttempts() == 3){//Se o usuário estiver bloqueado.
                 System.out.println("O usuário está bloqueado.");
             } else {//E-mail é válido e o usuário não está bloqueado.
                 if(!auth.SecondValidation(password,"nmg6Tg1kr3", "d55b0b6d862323c1f72d65552b3514716393a403")){
-                    if(auth.getPasswordsAttempts() < 3){//se o contador de senha for menor que 3
+                    if(auth.getUserAttempts() < 3){//se o contador de senha for menor que 3
                         System.out.println("O Senha fornecida está incorreta.");
 
-                        auth.setPasswordsAttempts(auth.getPasswordsAttempts()+1);
+                        auth.setUserAttempts(auth.getUserAttempts()+1);
 
-                        System.out.println("Faltam " +  (3 - auth.getPasswordsAttempts())  +" tentativas");
+                        System.out.println("Faltam " +  (3 - auth.getUserAttempts())  +" tentativas");
                     } else {
                         System.out.println("Usuário bloqueado.");
                         //voltar para primeira tela de login - email.
@@ -65,17 +66,17 @@ public class Main {
                 } else {//A senha está correta, devemos zerar o contador de erros e seguir para 3 etapa
                     System.out.println("A senha está correta!");
 
-                    auth.setPasswordsAttempts(0);
+                    auth.setUserAttempts(0);
 
                     if(!auth.ThirdValidation("user01", "Keys/user01-pkcs8-des.pem", cert.getPublicKey())){
                         //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
                         // o processo deve contabilizar um erro de verificação da chave privada,
                         // retornando para o início da terceira etapa
 
-                        if (auth.getPrivateKeyAttempts() < 3){// Se o contador de erros de chave privada for menor que 3
+                        if (auth.getUserAttempts() < 3){// Se o contador de erros de chave privada for menor que 3
                             System.out.println("A Chave Privada está incorreta!");
-                            auth.setPrivateKeyAttempts(auth.getPrivateKeyAttempts()+1);
-                            System.out.println("Faltam " +  (3 - auth.getPrivateKeyAttempts())  +" tentativas");
+                            auth.setUserAttempts(auth.getUserAttempts()+1);
+                            System.out.println("Faltam " +  (3 - auth.getUserAttempts())  +" tentativas");
 
                         } else {
                             //deve-se seguir para a primeira etapa e o acesso do usuário deve ser bloqueado por 2 minutos
@@ -87,7 +88,7 @@ public class Main {
                         //Entrar no sistema;
                         System.out.println("A Chave Privada está correta!");
 
-                        auth.setPrivateKeyAttempts(0);
+                        auth.setUserAttempts(0);
 
                     }
                 }
@@ -95,5 +96,6 @@ public class Main {
         }
 
     }
+    /***FIM: Etapa de autenticacao***/
 
 }
