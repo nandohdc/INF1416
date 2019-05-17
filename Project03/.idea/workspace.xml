@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/security/Authencation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Authencation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/security/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,10 +16,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/security/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
+            <state relative-caret-position="1350">
               <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -29,17 +28,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+            <state relative-caret-position="30">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1193#1194#0" expanded="true" />
-                <element signature="e#1228#1229#0" expanded="true" />
-                <element signature="e#1281#1282#0" expanded="true" />
-                <element signature="e#1329#1330#0" expanded="true" />
+                <element signature="method#emailAuthencation#0;class#Authencation#0" />
+                <element signature="method#CalculateHexHashPassword#0;class#Authencation#0" />
+                <element signature="method#readPEMFromFile#0;class#Authencation#0" />
+                <element signature="method#getkeyFactory#0;class#Authencation#0" />
+                <element signature="e#6105#6218#0" />
+                <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
+                <element signature="method#getKeyGen#0;class#Authencation#0" />
+                <element signature="method#getSecureRandom#0;class#Authencation#0" />
+                <element signature="method#getprivateKey#0;class#Authencation#0" />
+                <element signature="method#SignRandomMessage#0;class#Authencation#0" />
               </folding>
             </state>
           </provider>
@@ -77,8 +81,8 @@
         <option value="$PROJECT_DIR$/Tests/fake_email_list.txt" />
         <option value="$PROJECT_DIR$/Tests/passwords.txt" />
         <option value="$PROJECT_DIR$/src/security/SecretKeyGen.java" />
-        <option value="$PROJECT_DIR$/src/security/Authencation.java" />
         <option value="$PROJECT_DIR$/src/security/Main.java" />
+        <option value="$PROJECT_DIR$/src/security/Authencation.java" />
       </list>
     </option>
   </component>
@@ -194,7 +198,7 @@
     <frame x="0" y="23" width="1440" height="816" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -203,7 +207,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32872927" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32872927" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -282,26 +286,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
+    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        <state relative-caret-position="1350">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1193#1194#0" expanded="true" />
-            <element signature="e#1228#1229#0" expanded="true" />
-            <element signature="e#1281#1282#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
+        <state relative-caret-position="30">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#emailAuthencation#0;class#Authencation#0" />
+            <element signature="method#CalculateHexHashPassword#0;class#Authencation#0" />
+            <element signature="method#readPEMFromFile#0;class#Authencation#0" />
+            <element signature="method#getkeyFactory#0;class#Authencation#0" />
+            <element signature="e#6105#6218#0" />
+            <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
+            <element signature="method#getKeyGen#0;class#Authencation#0" />
+            <element signature="method#getSecureRandom#0;class#Authencation#0" />
+            <element signature="method#getprivateKey#0;class#Authencation#0" />
+            <element signature="method#SignRandomMessage#0;class#Authencation#0" />
           </folding>
         </state>
       </provider>
