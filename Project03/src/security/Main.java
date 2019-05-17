@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, CertificateException {
 
+        /***Inicio: Parametros para Teste***/
         File file = new File("Tests/fake_email_list.txt");
         ArrayList<String> emails = new ArrayList<String>();
 
@@ -37,8 +38,9 @@ public class Main {
         while ((st = br.readLine()) != null) {
             password.add(st);
         }
+        /***FIM: Parametros para Teste***/
 
-
+        /***Inicio: Etapa de autenticacao***/
         Authencation auth  = new Authencation();
 
         if(!auth.FirstValidation((cert.getSubjectDN().toString().split(",")[0].split("=")[1]).trim(), emails.get(0))){
