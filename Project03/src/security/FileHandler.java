@@ -79,20 +79,28 @@ public class FileHandler {
 
     }
 
-    Key getSecretKey(String filePath) throws Exception {
-        Path path = Paths.get(filePath + ".env");
-        byte[] fileBytes = Files.readAllBytes(path);
+    public byte[] getFileContent(String filePath, Key secretKey) {
+        Path path = Paths.get(filePath + ".enc");
 
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.DECRYPT_MODE, "private key");
-        byte[] seed = cipher.doFinal(fileBytes);
+        byte[] fileBytes = this.readFile(path);
 
-        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-        secureRandom.setSeed(seed);
+        Cipher cipher = null;
+        try {
+            cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES");
-        keyGenerator.init(56, secureRandom);
-
-        return keyGenerator.generateKey();
+            return cipher.doFinal(fileBytes);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
