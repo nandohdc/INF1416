@@ -6,27 +6,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class LoginPanel extends JPanel {
+public class SecretKeyPanel extends JPanel {
 
     JLabel label;
-    JTextField email;
+    JTextField secretKey;
     JButton button;
 
-    public LoginPanel(MainFrame.Listener listener){
-        label = new JLabel("E-mail");
-        email = new JTextField();
-        email.setPreferredSize(new Dimension(300, 40));
+    public SecretKeyPanel(MainFrame.Listener listener){
+        label = new JLabel("Chave secreta");
+        secretKey = new JTextField();
+        secretKey.setPreferredSize(new Dimension(300, 40));
         button = new JButton("proxímo");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<String> strings = new ArrayList<>();
-                strings.add(email.getText());
+                strings.add(secretKey.getText());
                 listener.onClick(strings);
             }
         });
         add(label);
-        add(email);
+        add(secretKey);
         add(button);
     }
 

@@ -29,6 +29,8 @@ public class PasswordPanel extends Panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listener.onClick(strings);
+                strings = new ArrayList<>();
+                password.setText("");
             }
         });
         add(label);

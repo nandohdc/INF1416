@@ -11,14 +11,10 @@ public class MySQLConnection {
     public static Connection getMySQLConnection(){
         Connection connection;
         try {
-            String driverName = "com.mysql.cj.jdbc.Driver";
+            String driverName = "org.sqlite.JDBC";
             Class.forName(driverName);
-            String serverName = "localhost";
-            String mydatabase = "trab1";
-            String url = "jdbc:mysql://" + serverName + "/" + mydatabase + "?useTimezone=true&serverTimezone=UTC";
-            String username = "root";
-            String password = "root";
-            connection = DriverManager.getConnection(url, username, password);
+            String url = "jdbc:sqlite:database.sqlite3";
+            connection = DriverManager.getConnection(url);
             if (connection != null)
                 status = 1;
             else

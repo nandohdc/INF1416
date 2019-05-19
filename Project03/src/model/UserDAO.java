@@ -10,15 +10,13 @@ import java.sql.SQLException;
 public class UserDAO {
 
     private String loginName;
-    private String name;
     private String password;
     private boolean blocked = false;
     private String timeBlocked;
     private int attempt = 0;
     private int totalAccess = 0;
-    private String certificateFactory;
+    private String certificate;
     private int totalQuery = 0;
-    private String publicKey;
     private GroupDAO group;
 
     public String getLoginName() {
@@ -27,14 +25,6 @@ public class UserDAO {
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
@@ -78,11 +68,11 @@ public class UserDAO {
     }
 
     public String getCertificateFactory() {
-        return certificateFactory;
+        return certificate;
     }
 
-    public void setCertificateFactory(String certificateFactory) {
-        this.certificateFactory = certificateFactory;
+    public void setCertificateFactory(String certificate) {
+        this.certificate = certificate;
     }
 
     public int getTotalQuery() {
@@ -93,14 +83,6 @@ public class UserDAO {
         this.totalQuery = totalQuery;
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
     public GroupDAO getGroup() {
         return group;
     }
@@ -109,17 +91,15 @@ public class UserDAO {
         this.group = group;
     }
 
-    public UserDAO(String loginName, String name, String password, boolean blocked, String timeBlocked, int attempt, int totalAccess, String certificateFactory, int totalQuery, String publicKey, GroupDAO group) {
+    public UserDAO(String loginName, String password, boolean blocked, String timeBlocked, int attempt, int totalAccess, String certificate, int totalQuery, GroupDAO group) {
         this.loginName = loginName;
-        this.name = name;
         this.password = password;
         this.blocked = blocked;
         this.timeBlocked = timeBlocked;
         this.attempt = attempt;
         this.totalAccess = totalAccess;
-        this.certificateFactory = certificateFactory;
+        this.certificate = certificate;
         this.totalQuery = totalQuery;
-        this.publicKey = publicKey;
         this.group = group;
     }
 
@@ -127,22 +107,48 @@ public class UserDAO {
         Connection conn = MySQLConnection.getMySQLConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO user (loginname, name, password, blocked, timeblocked, attempt, totalaccess, certificatefactory, totalquery, publickey, groupid) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO db_user (loginname, password, blocked, timeblocked, attempt, totalaccess, certificate, totalquery, groupid) VALUES(?,?,?,?,?,?,?,?,?)");
             ps.setString(1, loginName);
-            ps.setString(2, name);
-            ps.setString(3, password);
+            ps.setString(2, password);
             if(blocked)
-                ps.setInt(4, 1);
+                ps.setInt(3, 1);
             else
-                ps.setInt(4, 0);
-            ps.setString(5, timeBlocked);
-            ps.setInt(6, attempt);
-            ps.setInt(7, totalAccess);
-            ps.setString(8, certificateFactory);
-            ps.setInt(9, totalQuery);
-            ps.setString(10, publicKey);
-            ps.setInt(11, group.getGid());
+                ps.setInt(3, 0);
+            ps.setString(4, timeBlocked);
+            ps.setInt(5, attempt);
+            ps.setInt(6, totalAccess);
+            ps.setString(7, certificate);
+            ps.setInt(8, totalQuery);
+            ps.setInt(9, group.getId());
             ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean update(){
+        Connection conn = MySQLConnection.getMySQLConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE db_user SET password = ?, blocked = ?, timeblocked = ?, attempt = ?, totalaccess = ?, totalquery = ?, certificate = ? WHERE loginname = ?");
+            ps.setString(1, password);
+            if(blocked)
+                ps.setInt(2, 1);
+            else
+                ps.setInt(2, 0);
+            ps.setString(3, timeBlocked);
+            ps.setInt(4, attempt);
+            ps.setInt(5, totalAccess);
+            ps.setInt(6, totalQuery);
+            ps.setString(7, certificate);
+            ps.setString(8, loginName);
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,21 +161,22 @@ public class UserDAO {
         PreparedStatement ps;
         ResultSet rs = null;
         try {
-            ps = conn.prepareStatement("SELECT * FROM `user` WHERE loginname=?");
+            ps = conn.prepareStatement("SELECT * FROM `db_user` WHERE loginname=?");
             ps.setString(1, loginName);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new UserDAO(rs.getString("loginname"),
-                        rs.getString("name"),
+                UserDAO userDAO = new UserDAO(rs.getString("loginname"),
                         rs.getString("password"),
                         rs.getInt("blocked") == 1,
                         rs.getString("timeblocked"),
                         rs.getInt("attempt"),
                         rs.getInt("totalaccess"),
-                        rs.getString("certificatefactory"),
+                        rs.getString("certificate"),
                         rs.getInt("totalquery"),
-                        rs.getString("publickey"),
                         GroupDAO.get(rs.getInt("groupid")));
+                ps.close();
+                conn.close();
+                return userDAO;
             }
         } catch (SQLException e) {
             e.printStackTrace();

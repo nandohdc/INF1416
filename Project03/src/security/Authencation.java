@@ -3,6 +3,7 @@ package security;
 import javax.crypto.*;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -16,14 +17,16 @@ public class Authencation {
 
     private PrivateKey privateKey;
     private PublicKey publicKey;
-
+    private Key skey;
     private int userAttempts;
 
     public Authencation(){
         this.setPrivateKey(null);
         this.setPublicKey(null);
+        this.setSKey(null);
 
         this.setUserAttempts(0);
+
     }
 
     public PrivateKey getPrivateKey() {
@@ -42,13 +45,22 @@ public class Authencation {
         this.publicKey = publicKey;
     }
 
-    public int getUserAttempts() {
-        return userAttempts;
+    public Key getSKey() {
+        return skey;
     }
 
-    public void setUserAttempts(int userAttempts) {
-        this.userAttempts = userAttempts;
+    public void setSKey(Key secreytkey) {
+        this.skey = secreytkey;
     }
+
+    public int getUserAttempts(){
+        return this.userAttempts;
+    }
+
+    public void setUserAttempts(int newUserAttempts){
+        this.userAttempts = newUserAttempts;
+    }
+
 
     private boolean emailAuthencation(String userEmail, String newDBEmail){
 
@@ -212,15 +224,13 @@ public class Authencation {
                 Cipher cipher = null;
                 try {
                     cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+                    cipher.init(Cipher.DECRYPT_MODE, key);
                 } catch (NoSuchAlgorithmException e) {
                     System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "DES");
                     System.exit(1);
                 } catch (NoSuchPaddingException e) {
                     System.err.println("[ERROR][Class: Authencation] Padding not found: " + "PKCS5Padding");
                     System.exit(1);
-                }
-                try {
-                    cipher.init(Cipher.DECRYPT_MODE, key);
                 } catch (InvalidKeyException e) {
                     System.err.println("[ERROR][Class: Authencation] Invalid Key: " + key.toString());
                     System.exit(1);
@@ -330,5 +340,152 @@ public class Authencation {
         }
         System.out.println("[Third Validation] NOT OK - Invalid Private Key!");
         return false;
+    }
+
+    private byte[] readFile(Path path){
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    private SecureRandom SeedGen (String newSecureRandomAlgorithm, byte[] seed){
+
+        SecureRandom randomGen = null;
+
+        try {
+            randomGen = SecureRandom.getInstance(newSecureRandomAlgorithm);
+            randomGen.setSeed(seed);
+
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("[ERROR][Class: SecretKeyGen] Secure Random Algorithm not found: " + newSecureRandomAlgorithm);
+            System.exit(1);
+        }
+
+        return randomGen;
+    }
+
+    private Key getSecretKey(String FilePath, String newSecureRandomAlgorithm, String keyGeneratorAlgorithm, int KeySize){
+        Path path = Paths.get(FilePath + ".env");
+        byte[] fileBytes = this.readFile(path);
+
+        if(fileBytes != null){
+            Cipher cipher = null;
+            try {
+                cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+                cipher.init(Cipher.DECRYPT_MODE, this.getPrivateKey());
+                System.out.println(this.getPrivateKey());
+                byte[] seed = cipher.doFinal(fileBytes);
+
+                if(seed != null){
+                    SecureRandom randomGen = SeedGen(newSecureRandomAlgorithm, seed);
+                    KeyGenerator keyGenerator = null;
+                    try {
+                        keyGenerator = KeyGenerator.getInstance(keyGeneratorAlgorithm);
+                        keyGenerator.init(KeySize, randomGen);
+                        Key newSecretKey = keyGenerator.generateKey();
+                        return newSecretKey;
+
+                    } catch ( NoSuchAlgorithmException e ) {
+                        System.err.println("[ERROR][Class: SecretKeyGen] Key Generator Algorithm not found: " + keyGeneratorAlgorithm);
+                        System.exit(1);
+                    }
+
+                }
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
+
+    private byte[] getFileContent(String filePath) {
+        Path path = Paths.get(filePath + ".enc");
+
+        byte[] fileBytes = this.readFile(path);
+
+        if(fileBytes!=null){
+            Cipher cipher = null;
+            try {
+                cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+                cipher.init(Cipher.DECRYPT_MODE, this.getSKey());
+                return cipher.doFinal(fileBytes);
+
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+
+    private boolean SignatureVerification (String filePath, byte[] fileContent){
+        Path path = Paths.get(filePath + ".asd");
+
+        byte[] fileSignature = this.readFile(path);
+
+        if (fileSignature != null) {
+            Signature signature = null;
+            try {
+                signature = Signature.getInstance("MD5withRSA");
+                signature.initVerify(this.getPublicKey());
+                signature.update(fileContent);
+
+                return signature.verify(fileSignature);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (SignatureException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return false;
+    }
+
+    public byte [] VerifyFile(String filePath, String newSecureRandomAlgorithm, String keyGeneratorAlgorithm, int KeySize) {
+
+        this.setSKey(this.getSecretKey(filePath, newSecureRandomAlgorithm, keyGeneratorAlgorithm, KeySize));
+
+        if (this.getSKey() != null) {
+            byte[] fileContent = getFileContent(filePath);
+
+            if (fileContent != null && this.getPublicKey() != null) {
+
+                if (!SignatureVerification(filePath, fileContent)) {
+                    return null;
+                }
+
+                return fileContent;
+            }
+            System.out.println("[Error][Authentication] File is null");
+            return null;
+
+        }
+        return null;
     }
 }

@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
 
     private MainFrame(String name){
         super(name);
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.PAGE_AXIS));
         add(jPanel);
     }
 
@@ -34,6 +35,13 @@ public class MainFrame extends JFrame {
         validate();
     }
 
+    public void setSecretKey(Listener listener){
+        jPanel.removeAll();
+        validate();
+        jPanel.add(new SecretKeyPanel(listener));
+        validate();
+    }
+
     public void setPassword(Listener listener){
         jPanel.removeAll();
         validate();
@@ -41,11 +49,12 @@ public class MainFrame extends JFrame {
         validate();
     }
 
-    public void setMainScreenAdmin(String name, String group, String login, int totalAccess){
+    public void setMainScreenAdmin(String name, String group, String login, int totalAccess, Listener listener){
         jPanel.removeAll();
         validate();
         setHeader(name, group, login);
         setTotalAccess(totalAccess);
+        setButtomAdmin(listener);
         validate();
     }
 
@@ -63,10 +72,19 @@ public class MainFrame extends JFrame {
         jPanel.add(bodyOnePanel);
     }
 
+    private void setButtomAdmin(Listener listener){
+        ButtomAdminPanel buttomAdminPanel = new ButtomAdminPanel(listener);
+        jPanel.add(buttomAdminPanel);
+    }
+
     private void setTotalUsers(int totalUsers){
         BodyOnePanel bodyOnePanel = BodyOnePanel.getInstance();
         bodyOnePanel.setText("Total de usuários do sistema: " + totalUsers);
         jPanel.add(bodyOnePanel);
+    }
+
+    public void showError(String message){
+        JOptionPane.showMessageDialog(this, message);
     }
 
     public void removeBodyOne(){
