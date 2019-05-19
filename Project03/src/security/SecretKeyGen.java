@@ -87,17 +87,7 @@ public class SecretKeyGen {
         return newSecretKey;
     }
 
-    private String SaltGen(){
-        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        SecureRandom rand = new SecureRandom();
-        StringBuffer salt = new StringBuffer(10);
 
-        for (int i = 0; i < 10; i++) {
-            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
-        }
-
-        return salt.toString();
-    }
 
     private X509Certificate getX509Certificate (byte[] byteCertificate){
         CertificateFactory certificateFactory = null;

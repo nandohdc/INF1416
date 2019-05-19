@@ -58,12 +58,44 @@ public class MainFrame extends JFrame {
         validate();
     }
 
+    public void setRegister(String name, String group, String login, int totalUsers, Listener listener){
+        jPanel.removeAll();
+        validate();
+        setHeader(name, group, login);
+        setTotalUsers(totalUsers);
+        jPanel.add(new RegisterPanel(listener));
+        validate();
+    }
+
+    public void setUpdate(String name, String group, String login, int totalAccess, Listener listener){
+        jPanel.removeAll();
+        validate();
+        setHeader(name, group, login);
+        setTotalAccess(totalAccess);
+        jPanel.add(new UpdatePanel(listener));
+        validate();
+    }
+
+    public void setExit(String name, String group, String login, int totalAccess, Listener listener){
+        jPanel.removeAll();
+        validate();
+        setHeader(name, group, login);
+        setTotalAccess(totalAccess);
+        jPanel.add(new ExitPanel(listener));
+        validate();
+    }
+
+    public void setFiles(String name, String group, String login, int totalQuery, String[][]files, Listener listener){
+        jPanel.removeAll();
+        validate();
+        setHeader(name, group, login);
+        setTotalQuery(totalQuery);
+        jPanel.add(new FilesPanel(listener, files));
+        validate();
+    }
+
     private void setHeader(String name, String group, String login){
-        HeaderPanel headerPanel = HeaderPanel.getInstance();
-        headerPanel._setLogin(login);
-        headerPanel._setGroup(group);
-        headerPanel._setName(name);
-        jPanel.add(headerPanel);
+        jPanel.add(new HeaderPanel(name, login, group));
     }
 
     private void setTotalAccess(int totalAccess){
@@ -77,9 +109,15 @@ public class MainFrame extends JFrame {
         jPanel.add(buttomAdminPanel);
     }
 
-    private void setTotalUsers(int totalUsers){
+    private void setTotalUsers(int totalUsers) {
         BodyOnePanel bodyOnePanel = BodyOnePanel.getInstance();
         bodyOnePanel.setText("Total de usuários do sistema: " + totalUsers);
+        jPanel.add(bodyOnePanel);
+    }
+
+    private void setTotalQuery(int totalQuery) {
+        BodyOnePanel bodyOnePanel = BodyOnePanel.getInstance();
+        bodyOnePanel.setText("Total de consultas do usuário: " + totalQuery);
         jPanel.add(bodyOnePanel);
     }
 

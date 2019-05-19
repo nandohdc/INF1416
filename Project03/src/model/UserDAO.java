@@ -11,6 +11,7 @@ public class UserDAO {
 
     private String loginName;
     private String password;
+    private String salt;
     private boolean blocked = false;
     private String timeBlocked;
     private int attempt = 0;
@@ -33,6 +34,22 @@ public class UserDAO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
     }
 
     public boolean isBlocked() {
@@ -67,14 +84,6 @@ public class UserDAO {
         this.totalAccess = totalAccess;
     }
 
-    public String getCertificateFactory() {
-        return certificate;
-    }
-
-    public void setCertificateFactory(String certificate) {
-        this.certificate = certificate;
-    }
-
     public int getTotalQuery() {
         return totalQuery;
     }
@@ -91,9 +100,10 @@ public class UserDAO {
         this.group = group;
     }
 
-    public UserDAO(String loginName, String password, boolean blocked, String timeBlocked, int attempt, int totalAccess, String certificate, int totalQuery, GroupDAO group) {
+    public UserDAO(String loginName, String password, String salt, boolean blocked, String timeBlocked, int attempt, int totalAccess, String certificate, int totalQuery, GroupDAO group) {
         this.loginName = loginName;
         this.password = password;
+        this.salt = salt;
         this.blocked = blocked;
         this.timeBlocked = timeBlocked;
         this.attempt = attempt;
@@ -107,19 +117,20 @@ public class UserDAO {
         Connection conn = MySQLConnection.getMySQLConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO db_user (loginname, password, blocked, timeblocked, attempt, totalaccess, certificate, totalquery, groupid) VALUES(?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO db_user (loginname, password, salt, blocked, timeblocked, attempt, totalaccess, certificate, totalquery, groupid) VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, loginName);
             ps.setString(2, password);
+            ps.setString(3, salt);
             if(blocked)
-                ps.setInt(3, 1);
+                ps.setInt(4, 1);
             else
-                ps.setInt(3, 0);
-            ps.setString(4, timeBlocked);
-            ps.setInt(5, attempt);
-            ps.setInt(6, totalAccess);
-            ps.setString(7, certificate);
-            ps.setInt(8, totalQuery);
-            ps.setInt(9, group.getId());
+                ps.setInt(4, 0);
+            ps.setString(5, timeBlocked);
+            ps.setInt(6, attempt);
+            ps.setInt(7, totalAccess);
+            ps.setString(8, certificate);
+            ps.setInt(9, totalQuery);
+            ps.setInt(10, group.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -134,18 +145,19 @@ public class UserDAO {
         Connection conn = MySQLConnection.getMySQLConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE db_user SET password = ?, blocked = ?, timeblocked = ?, attempt = ?, totalaccess = ?, totalquery = ?, certificate = ? WHERE loginname = ?");
+            ps = conn.prepareStatement("UPDATE db_user SET password = ?, salt = ?, blocked = ?, timeblocked = ?, attempt = ?, totalaccess = ?, totalquery = ?, certificate = ? WHERE loginname = ?");
             ps.setString(1, password);
+            ps.setString(2, salt);
             if(blocked)
-                ps.setInt(2, 1);
+                ps.setInt(3, 1);
             else
-                ps.setInt(2, 0);
-            ps.setString(3, timeBlocked);
-            ps.setInt(4, attempt);
-            ps.setInt(5, totalAccess);
-            ps.setInt(6, totalQuery);
-            ps.setString(7, certificate);
-            ps.setString(8, loginName);
+                ps.setInt(3, 0);
+            ps.setString(4, timeBlocked);
+            ps.setInt(5, attempt);
+            ps.setInt(6, totalAccess);
+            ps.setInt(7, totalQuery);
+            ps.setString(8, certificate);
+            ps.setString(9, loginName);
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -167,6 +179,7 @@ public class UserDAO {
             if (rs.next()) {
                 UserDAO userDAO = new UserDAO(rs.getString("loginname"),
                         rs.getString("password"),
+                        rs.getString("salt"),
                         rs.getInt("blocked") == 1,
                         rs.getString("timeblocked"),
                         rs.getInt("attempt"),

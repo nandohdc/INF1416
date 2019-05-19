@@ -15,6 +15,7 @@ public class ButtomAdminPanel extends JPanel {
     public ButtomAdminPanel(MainFrame.Listener listener){
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         jLabel = new JLabel("Menu Principal:");
+        add(jLabel);
         buttonRegister = new JButton("Cadastrar um novo usuário");
         buttonRegister.addActionListener(e -> {
             strings = new ArrayList<>();

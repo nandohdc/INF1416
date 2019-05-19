@@ -82,7 +82,64 @@ public class Authencation {
         }
     }
 
-    private String CalculateHexHashPassword(String newPassword, String newSalt){
+    private static boolean PassowrdValidation(String newPassword){
+        if (!newPassword.matches("[0-9]+")|| newPassword.length() < 6 || newPassword.length() > 8){
+            return false;
+        } else {
+            boolean crescente = true;
+            boolean decrescente = true;
+
+            for (int i = 0; i < newPassword.length() - 1; i++) {
+                char c = newPassword.charAt(i);
+                char cProx = newPassword.charAt(i+1);
+
+                if (Character.getNumericValue(cProx) != Character.getNumericValue(c) + 1) {
+                    crescente = false;
+                }
+                if (Character.getNumericValue(cProx) != Character.getNumericValue(c) - 1) {
+                    decrescente = false;
+                }
+                if (cProx == c ) {
+                    return false;
+                }
+            }
+            return (!crescente) && (!decrescente);
+        }
+    }
+
+    public static String TesteCalculateHexHashPassword(String newPassword, String newSalt){
+
+        MessageDigest SHA1 = null;
+        byte[] digestPassword = null;
+
+        try {
+            SHA1 = MessageDigest.getInstance("SHA1");
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("[ERROR][Class: Authencation] Message Digest Algorithm not found: " + "SHA1");
+            System.exit(1);
+        }
+
+        SHA1.update((newPassword + newSalt).getBytes());
+        digestPassword = SHA1.digest();
+
+        if(digestPassword != null){
+            StringBuffer buf = new StringBuffer();
+
+            for (int i = 0; i < digestPassword.length; i++) {
+                String hex = Integer.toHexString(0x0100 + (digestPassword[i] & 0x00FF)).substring(1);
+                buf.append((hex.length() < 2 ? "0" : "") + hex);
+            }
+            return buf.toString();
+        }
+        return null;
+    }
+
+    public static String CalculateHexHashPassword(String newPassword, String newSalt){
+
+        if(!PassowrdValidation(newPassword)){
+            return null;
+        }
+
         MessageDigest SHA1 = null;
         byte[] digestPassword = null;
 
@@ -127,7 +184,7 @@ public class Authencation {
         }
 
         for (String password : passwordsCombinations) {
-            HashMapPassowrds.put(this.CalculateHexHashPassword(password, SaltDBPassword), password);
+            HashMapPassowrds.put(TesteCalculateHexHashPassword(password, SaltDBPassword), password);
         }
 
         if(!HashMapPassowrds.containsKey(HashDBPassword)){
@@ -208,11 +265,11 @@ public class Authencation {
         return null;
     }
 
-    private PrivateKey getprivateKey(String newSecret, String PathToCertificate){
+    private PrivateKey getprivateKey(String newSecret, String PathToCertificate) {
 
         KeyGenerator keyGen = this.getKeyGen("DES");
 
-        if(keyGen != null){
+        if (keyGen != null) {
 
             SecureRandom secureRandom = this.getSecureRandom("SHA1PRNG");
             secureRandom.setSeed(newSecret.getBytes());
@@ -220,51 +277,43 @@ public class Authencation {
 
             Key key = keyGen.generateKey();
 
-            if(key !=  null) {
+            if (key != null) {
                 Cipher cipher = null;
                 try {
                     cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
                     cipher.init(Cipher.DECRYPT_MODE, key);
-                } catch (NoSuchAlgorithmException e) {
-                    System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "DES");
-                    System.exit(1);
+                    byte[] pemFile = this.readPEMFromFile(PathToCertificate, cipher);
+
+                    if (pemFile != null) {
+                        String pem64 = new String(pemFile);
+                        pem64 = pem64.replace("-----BEGIN PRIVATE KEY-----\n", "");
+                        pem64 = pem64.replace("-----END PRIVATE KEY-----\n", "");
+
+                        byte[] pem = Base64.getMimeDecoder().decode(pem64);
+
+                        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(pem);
+
+                        KeyFactory keyFactory = this.getkeyFactory("RSA");
+
+                        PrivateKey privateKey = this.keyFactoryGeneratePrivate(keyFactory, pkcs8EncodedKeySpec);
+
+                        return privateKey;
+                    }
+
                 } catch (NoSuchPaddingException e) {
                     System.err.println("[ERROR][Class: Authencation] Padding not found: " + "PKCS5Padding");
+                    System.exit(1);
+                } catch (NoSuchAlgorithmException e) {
+                    System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "DES");
                     System.exit(1);
                 } catch (InvalidKeyException e) {
                     System.err.println("[ERROR][Class: Authencation] Invalid Key: " + key.toString());
                     System.exit(1);
                 }
 
-                byte[] pemFile = this.readPEMFromFile(PathToCertificate, cipher);
-
-                if (pemFile != null) {
-                    String pem64 = new String(pemFile);
-                    pem64 = pem64.replace("-----BEGIN PRIVATE KEY-----\n", "");
-                    pem64 = pem64.replace("-----END PRIVATE KEY-----\n", "");
-
-                    byte[] pem = Base64.getMimeDecoder().decode(pem64);
-
-                    PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(pem);
-
-                    KeyFactory keyFactory = this.getkeyFactory("RSA");
-
-                    PrivateKey privateKey = this.keyFactoryGeneratePrivate(keyFactory, pkcs8EncodedKeySpec);
-
-                    return privateKey;
-
-                } else {
-
-                    return null;
-                }
             }
 
-            else{
-
-                return null;
-            }
         }
-
         return null;
     }
 
@@ -342,7 +391,7 @@ public class Authencation {
         return false;
     }
 
-    private byte[] readFile(Path path){
+    public byte[] readFile(Path path){
         try {
             return Files.readAllBytes(path);
         } catch (IOException e) {
@@ -373,12 +422,12 @@ public class Authencation {
         Path path = Paths.get(FilePath + ".env");
         byte[] fileBytes = this.readFile(path);
 
-        if(fileBytes != null){
+        if(fileBytes != null && this.getPrivateKey()!= null){
             Cipher cipher = null;
             try {
                 cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
                 cipher.init(Cipher.DECRYPT_MODE, this.getPrivateKey());
-                System.out.println(this.getPrivateKey());
+
                 byte[] seed = cipher.doFinal(fileBytes);
 
                 if(seed != null){
@@ -484,8 +533,19 @@ public class Authencation {
             }
             System.out.println("[Error][Authentication] File is null");
             return null;
-
         }
         return null;
+    }
+
+    public static String SaltGen(){
+        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        SecureRandom rand = new SecureRandom();
+        StringBuffer salt = new StringBuffer(10);
+
+        for (int i = 0; i < 10; i++) {
+            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
+        }
+
+        return salt.toString();
     }
 }

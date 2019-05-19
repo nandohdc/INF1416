@@ -2,42 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sqlite_jdbc_3_27_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/activity/ExitPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/activity/FilesPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/activity/RegisterPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/activity/UpdatePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/MessageDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/RegistryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project03.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Project03.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/fake_email_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/fake_email_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/ButtomAdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/ButtomAdminPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/LoginPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/HeaderPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/HeaderPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/main/Main$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Project03/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/model/GroupDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/model/GroupDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Project03/model/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/model/UserDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/repository/MySQLConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/repository/MySQLConnection.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Project03/security/Authencation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/security/Authencation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/security/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/security/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/BodyOnePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/ButtomAdminPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/HeaderPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/LoginPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/MainAdmin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/MainFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/activity/PasswordPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project03/security/SecretKeyGen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/security/SecretKeyGen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/ButtomAdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/ButtomAdminPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/HeaderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/HeaderPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/GroupDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GroupDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/MySQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/MySQLConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/security/Authencation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Authencation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/security/FileHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/security/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/security/SecretKeyGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/SecretKeyGen.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/security/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="98" column="61" selection-start-line="98" selection-start-column="61" selection-end-line="98" selection-end-column="61" />
+            <state relative-caret-position="130">
+              <caret line="53" column="87" lean-forward="true" selection-start-line="53" selection-start-column="87" selection-end-line="53" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -63,15 +49,24 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/passwords.txt">
+          <provider selected="true" editor-type-id="LargeFileEditor">
+            <state relative-caret-position="75">
+              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="236" column="17" selection-start-line="236" selection-start-column="17" selection-end-line="236" selection-end-column="17" />
+            <state relative-caret-position="234">
+              <caret line="432" column="33" lean-forward="true" selection-start-line="432" selection-start-column="33" selection-end-line="432" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#emailAuthencation#0;class#Authencation#0" />
-                <element signature="method#CalculateHexHashPassword#0;class#Authencation#0" />
+                <element signature="method#PassowrdValidation#0;class#Authencation#0" />
                 <element signature="method#readPEMFromFile#0;class#Authencation#0" />
                 <element signature="method#getkeyFactory#0;class#Authencation#0" />
                 <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
@@ -100,6 +95,8 @@
       <find>vk</find>
       <find>pvk</find>
       <find>user01</find>
+      <find>Calculate</find>
+      <find>setPri</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,12 +106,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Tests/passwords.txt" />
-        <option value="$PROJECT_DIR$/src/security/SecretKeyGen.java" />
         <option value="$PROJECT_DIR$/src/security/FileHandler.java" />
         <option value="$PROJECT_DIR$/Tests/fake_email_list.txt" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/security/SecurityFileHandler.java" />
         <option value="$PROJECT_DIR$/src/security/Main.java" />
+        <option value="$PROJECT_DIR$/Keys/admin-x509.crt" />
+        <option value="$PROJECT_DIR$/src/security/SecretKeyGen.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/security/Authencation.java" />
       </list>
     </option>
@@ -130,14 +128,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project03" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="Files" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="Keys" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
@@ -166,7 +174,22 @@
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project03" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="Tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -183,7 +206,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/repository" />
+      <recent name="$PROJECT_DIR$/src/model" />
+      <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/activity" />
     </key>
   </component>
@@ -261,9 +287,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="816" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18884121" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -273,7 +298,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872927" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32872927" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39917126" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -319,10 +344,50 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout-to-restore>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/security/Authencation.java</url>
+          <line>271</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/security/Authencation.java</url>
+          <line>361</line>
+          <properties />
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/security/Main.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>sw.toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>fileBytes.toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>RegistryDAO.getAll()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Tests/passwords.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/security/Signature.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -330,20 +395,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/fake_email_list.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/activity/activity/MainFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-566">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/activity/activity/MainFrame.java" />
     <entry file="file://$PROJECT_DIR$/src/activity/BodyOnePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -351,54 +403,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/activity/MainFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/UserDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1740">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/SecretKeyGen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-719">
-          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/SecurityFileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="98" column="61" selection-start-line="98" selection-start-column="61" selection-end-line="98" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/security/SecurityFileHandler.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jce.jar!/javax/crypto/Cipher.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-906">
@@ -408,14 +413,116 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/RegistryDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/MessageDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/generate_password.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/activity/LoginPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/activity/MainFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/activity/SecretKeyPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/fake_email_list.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Keys/user01-x509.crt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="102" column="11" selection-start-line="102" selection-start-column="11" selection-end-line="102" selection-end-column="11" />
+          <folding>
+            <element signature="e#984#985#0" expanded="true" />
+            <element signature="e#1018#1019#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/security/SecretKeyGen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="91" column="70" selection-start-line="91" selection-start-column="55" selection-end-line="91" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Keys/admin-x509.crt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="196" column="109" selection-start-line="196" selection-start-column="109" selection-end-line="196" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/passwords.txt">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="75">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/security/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="53" column="87" lean-forward="true" selection-start-line="53" selection-start-column="87" selection-end-line="53" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="236" column="17" selection-start-line="236" selection-start-column="17" selection-end-line="236" selection-end-column="17" />
+        <state relative-caret-position="234">
+          <caret line="432" column="33" lean-forward="true" selection-start-line="432" selection-start-column="33" selection-end-line="432" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#emailAuthencation#0;class#Authencation#0" />
-            <element signature="method#CalculateHexHashPassword#0;class#Authencation#0" />
+            <element signature="method#PassowrdValidation#0;class#Authencation#0" />
             <element signature="method#readPEMFromFile#0;class#Authencation#0" />
             <element signature="method#getkeyFactory#0;class#Authencation#0" />
             <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
