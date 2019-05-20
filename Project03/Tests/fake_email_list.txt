@@ -1,5 +1,5 @@
-admin@inf1416.puc-rio.br
 user01@inf1416.puc-rio.br
+admin@inf1416.puc-rio.br
 bob@gmail.com
 john@hotmail.com
 joseph@yahoo.com

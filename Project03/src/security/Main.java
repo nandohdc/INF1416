@@ -24,7 +24,7 @@ public class Main {
             emails.add(st);
         }
 
-        FileInputStream inStream = new FileInputStream("Keys/admin-x509.crt");
+        FileInputStream inStream = new FileInputStream("Keys/user01-x509.crt");
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         X509Certificate cert = (X509Certificate)cf.generateCertificate(inStream);
 
@@ -68,7 +68,7 @@ public class Main {
 
                     auth.setUserAttempts(0);
 
-                    if(!auth.ThirdValidation("admin", "Keys/admin-pkcs8-des.pem", cert.getPublicKey())){
+                    if(!auth.ThirdValidation("user01", "Keys/user01-pkcs8-des.pem", cert.getPublicKey())){
                         //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
                         // o processo deve contabilizar um erro de verificação da chave privada,
                         // retornando para o início da terceira etapa
@@ -96,7 +96,22 @@ public class Main {
         }
         /***FIM: Etapa de autenticacao***/
 
-        auth.VerifyFile("Files/index", "SHA1PRNG", "DES",56);
+        auth.VerifyFile("Files/index");
+
+        //Lucas tem que me passar qual arquivo foi selecionado.
+        createFile(auth.VerifyFile("Files/XXYYZZ11"), "Files/XXYYZZ11.doc");
+
+    }
+
+    private static boolean createFile(byte[] fileContent, String filename) throws FileNotFoundException {
+
+        try (FileOutputStream stream = new FileOutputStream(filename)) {
+            stream.write(fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
 
     }
 
