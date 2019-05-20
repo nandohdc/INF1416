@@ -68,7 +68,7 @@ public class Main {
 
                     auth.setUserAttempts(0);
 
-                    if(!auth.ThirdValidation("user01", "Keys/user01-pkcs8-des.pem", cert.getPublicKey())){
+                    if(!auth.ThirdValidation("user01", "Keys/user01-pkcs8-des.pem", cert.getPublicKey(), null)){
                         //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
                         // o processo deve contabilizar um erro de verificação da chave privada,
                         // retornando para o início da terceira etapa
@@ -96,23 +96,8 @@ public class Main {
         }
         /***FIM: Etapa de autenticacao***/
 
-        auth.VerifyFile("Files/index");
-
-        //Lucas tem que me passar qual arquivo foi selecionado.
-        createFile(auth.VerifyFile("Files/XXYYZZ11"), "Files/XXYYZZ11.doc");
-
     }
 
-    private static boolean createFile(byte[] fileContent, String filename) throws FileNotFoundException {
 
-        try (FileOutputStream stream = new FileOutputStream(filename)) {
-            stream.write(fileContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-
-    }
 
 }

@@ -1,5 +1,8 @@
 package security;
 
+import model.RegistryDAO;
+import model.UserDAO;
+
 import javax.crypto.*;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -206,15 +209,10 @@ public class Authencation {
         return true;
     }
 
-    private byte[] readPEMFromFile(String newPath, Cipher cipher){
+    private byte[] readPEMFromFile(String newPath, Cipher cipher) throws IOException{
         byte[] cipherPemBytes = new byte[0];
 
-        try {
-            cipherPemBytes = Files.readAllBytes(Paths.get(newPath));
-        } catch (IOException e) {
-            System.err.println("[ERROR][Class: Authencation] File not found: " + newPath);
-            System.exit(1);
-        }
+        cipherPemBytes = Files.readAllBytes(Paths.get(newPath));
 
         try {
             byte[] pemB = cipher.doFinal(cipherPemBytes);
@@ -276,7 +274,7 @@ public class Authencation {
         return null;
     }
 
-    private PrivateKey getprivateKey(String newSecret, String PathToCertificate) {
+    private PrivateKey getprivateKey(String newSecret, String PathToCertificate) throws IOException {
 
         KeyGenerator keyGen = this.getKeyGen("DES");
 
@@ -368,7 +366,7 @@ public class Authencation {
         return false;
     }
 
-    public boolean ThirdValidation(String newSecret, String PathToPEM, PublicKey pbk){
+    public boolean ThirdValidation(String newSecret, String PathToPEM, PublicKey pbk, UserDAO userDAO){
 
         if(newSecret == null){
             System.err.println("[ERROR][Class: Authencation] Invalid secret!" );
@@ -376,11 +374,15 @@ public class Authencation {
         }
 
         if(PathToPEM == null){
+            new RegistryDAO(4004, userDAO, null, null).save();
             System.err.println("[ERROR][Class: Authencation] Invalid PathToPEM!" );
             return false;
         }
-
-        this.setPrivateKey(this.getprivateKey(newSecret, PathToPEM));
+        try {
+            this.setPrivateKey(this.getprivateKey(newSecret, PathToPEM));
+        } catch (IOException e){
+            new RegistryDAO(4004, userDAO, null, null).save();
+        }
 
         if(this.getPrivateKey()!=null){
             this.setPublicKey(pbk);//this.getCertificatePublicKey(certificate)
@@ -389,6 +391,7 @@ public class Authencation {
                     System.out.println("[Third Validation] OK - Signature verified!\n" + "Private Key: " + this.getPrivateKey() + "\n" + "Public Key: " + this.getPublicKey());
                     return true;
                 } else{
+                    new RegistryDAO(4006, userDAO, null, null).save();
                     System.out.println("[Third Validation] NOT OK - Signature failed!");
                     return false;
                 }
@@ -398,6 +401,7 @@ public class Authencation {
                 return false;
             }
         }
+        new RegistryDAO(4005, userDAO, null, null).save();
         System.out.println("[Third Validation] NOT OK - Invalid Private Key!");
         return false;
     }
@@ -440,8 +444,7 @@ public class Authencation {
                 cipher.init(Cipher.DECRYPT_MODE, this.getPrivateKey());
                 cipher.update(fileBytes);
                 byte [] seed = cipher.doFinal();
-                String sd = new String(seed);
-                System.out.println(sd);
+                this.setSd(new String(seed));
 
                 return seed;
 
@@ -550,7 +553,6 @@ public class Authencation {
                 if (!SignatureVerification(filePath, fileContent)) {
                     return null;
                 }
-
                 return fileContent;
             }
             System.out.println("[Error][Authentication] File is null");

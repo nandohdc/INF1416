@@ -23,6 +23,7 @@ public class PasswordPanel extends Panel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         label = new JLabel("Senha");
         password = new JPasswordField();
+        password.setEditable(false);
         password.setPreferredSize(new Dimension(300, 40));
         button = new JButton("proxímo");
         button.addActionListener(new ActionListener() {

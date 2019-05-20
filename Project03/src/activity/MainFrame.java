@@ -58,6 +58,21 @@ public class MainFrame extends JFrame {
         validate();
     }
 
+    public void setConfirmDialog(String message, Listener listener){
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, message, "Confirmar cadastro", dialogButton);
+        ArrayList<String> strings;
+        if(dialogResult == 0) {
+            strings = new ArrayList<>();
+            strings.add("yes");
+            listener.onClick(strings);
+        } else {
+            strings = new ArrayList<>();
+            strings.add("no");
+            listener.onClick(strings);
+        }
+    }
+
     public void setRegister(String name, String group, String login, int totalUsers, Listener listener){
         jPanel.removeAll();
         validate();
