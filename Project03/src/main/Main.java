@@ -27,6 +27,7 @@ public class Main {
 
     private static MainFrame mainFrame;
     private static Authencation auth = new Authencation();
+    static String[][] strings;
 
     public static void main(String[] args) {
         new RegistryDAO(1001, null, null, null).save();
@@ -163,53 +164,77 @@ public class Main {
     }
 
     private static void loadUserView(UserDAO userDAO) {
-
+        new RegistryDAO(5001, userDAO, null, null).save();
+        mainFrame.setMainScreenUser(getCertificateInfo(userDAO.getCertificate()).get("name"), userDAO.getGroup().getName(), userDAO.getLoginName(), userDAO.getTotalAccess(),
+                strings -> {
+                    if (strings.get(0).equals("update")) {
+                        new RegistryDAO(5003, userDAO, null, null).save();
+                        loadUpdateView(userDAO);
+                    }
+                    else if (strings.get(0).equals("exit")) {
+                        new RegistryDAO(5004, userDAO, null, null).save();
+                        loadExitView(userDAO);
+                    }
+                    else if (strings.get(0).equals("files")) {
+                        new RegistryDAO(5005, userDAO, null, null).save();
+                        loadFileView(userDAO);
+                    }
+                });
     }
 
     private static void loadFileView(UserDAO userDAO) {
         new RegistryDAO(8001, userDAO, null, null).save();
-        String[][] strings = new String[new String(auth.VerifyFile("Files/index")).split("\n").length][];
-        String[] localsplit = new String(auth.VerifyFile("Files/index")).split("\n");
-
-        int i = 0;
-
-        for(String j: localsplit){
-            strings[i] = j.split(" ");
-            i++;
-        }
 
         mainFrame.setFiles(getCertificateInfo(userDAO.getCertificate()).get("name"), userDAO.getGroup().getName(), userDAO.getLoginName(), userDAO.getTotalQuery(), strings, strings1 -> {
 
             if (strings1.get(0).equals("back")) {
                 new RegistryDAO(8002, userDAO, null, null).save();
+                strings = null;
                 loadAdminView(userDAO);
             } else if(strings1.get(0).equals("list")){
-/*
-                String[][] strings = new String[new String(auth.VerifyFile(strings1.get(1)+"index")).split("\n").length][];
-                String[] localsplit = new String(auth.VerifyFile(strings1.get(1))+"index").split("\n");
+                new RegistryDAO(8003, userDAO, null, null).save();
+                byte[] a = auth.VerifyFile(strings1.get(1) + "/" + "index", userDAO, false, null);
+                if(a == null){
+                    mainFrame.showError("caminho invalido");
+                    return;
+                }
+                strings = new String[new String(a).split("\n").length][];
+                String[] localsplit = new String(a).split("\n");
 
                 int i = 0;
 
                 for(String j: localsplit){
                     strings[i] = j.split(" ");
                     i++;
-                }*/
+                }
+
+                userDAO.setTotalQuery(userDAO.getTotalQuery() + 1);
+                userDAO.update();
+
+                new RegistryDAO(8009, userDAO, null, null).save();
+                mainFrame.setNewFiles(strings);
 
             } else {
                 int index = Integer.valueOf(strings1.get(1));
-                try {
-                    createFile(auth.VerifyFile(strings1.get(2) + "/" + strings[index][0]), strings1.get(2) + "/" + strings[index][1]);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                new RegistryDAO(8010, userDAO, strings[index][0], null).save();
+                if(!strings[index][2].equals(userDAO.getLoginName()) && !strings[index][3].toLowerCase().equals(userDAO.getGroup().getName().toLowerCase())){
+                    mainFrame.showError("Nao tem permissao para abrir");
+                    new RegistryDAO(8012, userDAO, strings[index][0], null).save();
+                } else {
+                    new RegistryDAO(8011, userDAO, strings[index][0], null).save();
+                    try {
+                        createFile(auth.VerifyFile(strings1.get(2) + "/" + strings[index][0], userDAO, true, strings[index][0]), strings1.get(2) + "/" + strings[index][1]);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-                new RegistryDAO(8003, userDAO, null, null).save();
             }
         });
     }
 
     private static void loadRegisterView(UserDAO userDAO) {
         new RegistryDAO(6001, userDAO, null, null).save();
-        mainFrame.setRegister(getCertificateInfo(userDAO.getCertificate()).get("name"), userDAO.getGroup().getName(), userDAO.getLoginName(), 10, strings -> {
+        mainFrame.setRegister(getCertificateInfo(userDAO.getCertificate()).get("name"), userDAO.getGroup().getName(), userDAO.getLoginName(), UserDAO.getAll().size(), strings -> {
             if(strings.get(0).equals("back")){
                 new RegistryDAO(6007, userDAO, null, null).save();
                 loadAdminView(userDAO);

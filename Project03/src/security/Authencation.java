@@ -426,7 +426,7 @@ public class Authencation {
             randomGen.setSeed(seed);
 
         } catch (NoSuchAlgorithmException e) {
-            System.err.println("[ERROR][Class: SecretKeyGen] Secure Random Algorithm not found: " + newSecureRandomAlgorithm);
+            System.err.println("[ERROR][Class: Authentication] Secure Random Algorithm not found: " + newSecureRandomAlgorithm);
             System.exit(1);
         }
 
@@ -464,7 +464,7 @@ public class Authencation {
         return null;
     }
 
-    private byte[] getFileContent(String filePath) {
+    private byte[] getFileContent(String filePath) throws Exception {
         Path path = Paths.get(filePath + ".enc");
 
         byte[] fileBytes = this.readFile(path);
@@ -482,7 +482,6 @@ public class Authencation {
 
                 if (key != null) {
                     Cipher cipher = null;
-                    try {
                         cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
                         cipher.init(Cipher.DECRYPT_MODE, key);
 
@@ -491,23 +490,6 @@ public class Authencation {
                         byte[] fileContent = cipher.doFinal(encryptedFile);
 
                         return fileContent;
-
-                    } catch (NoSuchPaddingException e) {
-                        System.err.println("[ERROR][Class: Authencation] Padding not found: " + "PKCS5Padding");
-                        System.exit(1);
-                    } catch (NoSuchAlgorithmException e) {
-                        System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "DES");
-                        System.exit(1);
-                    } catch (InvalidKeyException e) {
-                        System.err.println("[ERROR][Class: Authencation] Invalid Key: " + key.toString());
-                        System.exit(1);
-                    } catch (BadPaddingException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (IllegalBlockSizeException e) {
-                        e.printStackTrace();
-                    }
 
                 }
             }
@@ -541,23 +523,44 @@ public class Authencation {
         return false;
     }
 
-    public byte[] VerifyFile(String filePath) {
+    public byte[] VerifyFile(String filePath, UserDAO userDAO, boolean isArchive, String name) {
 
         this.setSKey(this.getSecretKey(filePath));
 
         if (this.getSKey() != null) {
-            byte[] fileContent = getFileContent(filePath);
-
+            byte[] fileContent = null;
+            try {
+                fileContent = getFileContent(filePath);
+            }catch (Exception e){
+                if(!isArchive)
+                    new RegistryDAO(8007, userDAO, null, null).save();
+                else
+                    new RegistryDAO(8015, userDAO, name, null).save();
+                return null;
+            }
+            if(!isArchive)
+                new RegistryDAO(8005, userDAO, null, null).save();
+            else
+                new RegistryDAO(8013, userDAO, name, null).save();
             if (fileContent != null && this.getPublicKey() != null) {
 
                 if (!SignatureVerification(filePath, fileContent)) {
+                    if(!isArchive)
+                        new RegistryDAO(8008, userDAO, null, null).save();
+                    else
+                        new RegistryDAO(8016, userDAO, name, null).save();
                     return null;
                 }
+                if(!isArchive)
+                    new RegistryDAO(8006, userDAO, null, null).save();
+                else
+                    new RegistryDAO(8014, userDAO, name, null).save();
                 return fileContent;
             }
             System.out.println("[Error][Authentication] File is null");
             return null;
         }
+        new RegistryDAO(8004, userDAO, null, null).save();
         return null;
     }
 

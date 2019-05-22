@@ -10,6 +10,7 @@ public class FilesPanel extends JPanel {
     private JTextField list;
     private JButton buttonList;
     private JTable table;
+    private DefaultTableModel tableModel;
     private JButton buttonBack;
     private ArrayList<String> strings;
 
@@ -18,7 +19,7 @@ public class FilesPanel extends JPanel {
 
         JPanel panelCert = new JPanel();
         panelCert.setLayout(new BoxLayout(panelCert, BoxLayout.LINE_AXIS));
-        labelList = new JLabel("Caminho do arquivo do certificado digital:");
+        labelList = new JLabel("Caminho da pasta:");
         panelCert.add(labelList);
         this.list = new JTextField();
         panelCert.add(this.list);
@@ -42,7 +43,7 @@ public class FilesPanel extends JPanel {
         add(buttonBack);
 
         String[] header = {"nome código","nome secreto", "dono", "grupo"};
-        DefaultTableModel tableModel = new DefaultTableModel(list, header);
+        tableModel = new DefaultTableModel(list, header);
         table = new JTable(tableModel){
             public boolean isCellEditable(int nRow, int nCol) {
                 return false;
@@ -52,6 +53,7 @@ public class FilesPanel extends JPanel {
             strings = new ArrayList<>();
             strings.add("item");
             strings.add(String.valueOf(table.getSelectedRow()));
+            strings.add(this.list.getText());
             listener.onClick(strings);
         });
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -61,13 +63,16 @@ public class FilesPanel extends JPanel {
         add(table.getTableHeader());
         add(scrollPane);
 
-//        buttonBack = new JButton("Voltar");
-//        buttonBack.addActionListener(e -> {
-//            strings = new ArrayList<>();
-//            strings.add("back");
-//            listener.onClick(strings);
-//        });
-//        add(buttonBack);
+    }
+
+    public void setData(String[][] list){
+        while (tableModel.getRowCount() != 0){
+            tableModel.removeRow(0);
+        }
+        for(String[] i : list) {
+            tableModel.addRow(i);
+        }
+        tableModel.fireTableDataChanged();
     }
 
 }

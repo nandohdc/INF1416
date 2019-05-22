@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDAO {
 
@@ -196,5 +197,36 @@ public class UserDAO {
         }
         return null;
     }
+
+    public static ArrayList<UserDAO> getAll(){
+        Connection conn = MySQLConnection.getMySQLConnection();
+        PreparedStatement ps;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM `db_user`");
+            rs = ps.executeQuery();
+            ArrayList<UserDAO> userDAO = new ArrayList<>();
+            while (rs.next()) {
+                userDAO.add(new UserDAO(rs.getString("loginname"),
+                        rs.getString("password"),
+                        rs.getString("salt"),
+                        rs.getInt("blocked") == 1,
+                        rs.getString("timeblocked"),
+                        rs.getInt("attempt"),
+                        rs.getInt("totalaccess"),
+                        rs.getString("certificate"),
+                        rs.getInt("totalquery"),
+                        GroupDAO.get(rs.getInt("groupid"))));
+
+            }
+            ps.close();
+            conn.close();
+            return userDAO;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

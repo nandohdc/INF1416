@@ -2,25 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/activity/ConfirmPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/database.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/activity/PasswordPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/security/Authencation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/security/Authencation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project03/security/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project03/security/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/activity/RegistryPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/BodyOnePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/BodyOnePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/ButtomAdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/ButtomAdminPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/ConfirmPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/ConfirmPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/ExitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/ExitPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/FilesPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/FilesPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/HeaderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/HeaderPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/LoginPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/MainAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/MainAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/activity/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/MainFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/activity/PasswordPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/PasswordPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/RegisterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/RegisterPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/SecretKeyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/SecretKeyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/activity/UpdatePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/activity/UpdatePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/GroupDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GroupDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/MessageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/MessageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/RegistryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/RegistryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/MySQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/MySQLConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/UserModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/security/Authencation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Authencation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/security/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/security/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/security/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="244">
               <caret line="96" column="42" selection-start-line="96" selection-start-column="42" selection-end-line="96" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -47,31 +52,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="180" column="171" selection-start-line="180" selection-start-column="171" selection-end-line="180" selection-end-column="171" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="538" column="9" lean-forward="true" selection-start-line="538" selection-start-column="9" selection-end-line="538" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1342#1343#0" expanded="true" />
-                <element signature="e#1370#1371#0" expanded="true" />
-                <element signature="method#emailAuthencation#0;class#Authencation#0" />
-                <element signature="method#PassowrdValidation#0;class#Authencation#0" />
-                <element signature="e#4158#4173#0" expanded="true" />
-                <element signature="method#getkeyFactory#0;class#Authencation#0" />
-                <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
-                <element signature="method#getKeyGen#0;class#Authencation#0" />
-                <element signature="method#getSecureRandom#0;class#Authencation#0" />
-              </folding>
+            <state relative-caret-position="153">
+              <caret line="428" column="61" selection-start-line="428" selection-start-column="61" selection-end-line="428" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -109,9 +93,9 @@
         <option value="$PROJECT_DIR$/Keys/admin-x509.crt" />
         <option value="$PROJECT_DIR$/src/security/SecretKeyGen.java" />
         <option value="$PROJECT_DIR$/Tests/fake_email_list.txt" />
-        <option value="$PROJECT_DIR$/src/security/Authencation.java" />
         <option value="$PROJECT_DIR$/src/security/Main.java" />
         <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/security/Authencation.java" />
       </list>
     </option>
   </component>
@@ -126,7 +110,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -154,7 +137,19 @@
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project03" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project03" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
@@ -181,6 +176,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -192,10 +188,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/security" />
       <recent name="$PROJECT_DIR$/src/repository" />
-      <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/model" />
+      <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/activity" />
     </key>
   </component>
@@ -273,16 +269,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="816" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
+      <window_info id="DB Browser" />
+      <window_info id="Project Explorer" />
+      <window_info id="Job Explorer" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19670959" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="DB Execution Console" />
+      <window_info anchor="bottom" id="Console" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32872927" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32872927" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.29281768" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39917126" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -444,10 +446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="885">
           <caret line="102" column="11" selection-start-line="102" selection-start-column="11" selection-end-line="102" selection-end-column="11" />
-          <folding>
-            <element signature="e#984#985#0" expanded="true" />
-            <element signature="e#1018#1019#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -480,28 +478,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="538" column="9" lean-forward="true" selection-start-line="538" selection-start-column="9" selection-end-line="538" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1342#1343#0" expanded="true" />
-            <element signature="e#1370#1371#0" expanded="true" />
-            <element signature="method#emailAuthencation#0;class#Authencation#0" />
-            <element signature="method#PassowrdValidation#0;class#Authencation#0" />
-            <element signature="e#4158#4173#0" expanded="true" />
-            <element signature="method#getkeyFactory#0;class#Authencation#0" />
-            <element signature="method#keyFactoryGeneratePrivate#0;class#Authencation#0" />
-            <element signature="method#getKeyGen#0;class#Authencation#0" />
-            <element signature="method#getSecureRandom#0;class#Authencation#0" />
-          </folding>
+        <state relative-caret-position="319">
+          <caret line="166" column="5" selection-start-line="166" selection-start-column="5" selection-end-line="166" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/security/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="244">
           <caret line="96" column="42" selection-start-line="96" selection-start-column="42" selection-end-line="96" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -509,10 +495,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="180" column="171" selection-start-line="180" selection-start-column="171" selection-end-line="180" selection-end-column="171" />
+        <state relative-caret-position="153">
+          <caret line="428" column="61" selection-start-line="428" selection-start-column="61" selection-end-line="428" selection-end-column="61" />
         </state>
       </provider>
     </entry>

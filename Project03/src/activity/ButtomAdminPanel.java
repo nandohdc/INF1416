@@ -47,4 +47,8 @@ public class ButtomAdminPanel extends JPanel {
 
     }
 
+    public void hideButton(){
+        remove(buttonRegister);
+    }
+
 }

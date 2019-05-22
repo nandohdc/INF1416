@@ -7,6 +7,7 @@ public class MainFrame extends JFrame {
 
     private static MainFrame instance;
     private JPanel jPanel = new JPanel();
+    private FilesPanel filesPanel;
 
     public static MainFrame getInstance(){
         if(instance == null){
@@ -58,6 +59,23 @@ public class MainFrame extends JFrame {
         validate();
     }
 
+    public void setMainScreenUser(String name, String group, String login, int totalAccess, Listener listener){
+        jPanel.removeAll();
+        validate();
+        setHeader(name, group, login);
+        setTotalAccess(totalAccess);
+        setButtomUser(listener);
+        validate();
+    }
+
+    public void setLog(String[][] logs){
+        jPanel.removeAll();
+        validate();
+        jPanel.add(new RegistryPanel(logs));
+        validate();
+    }
+
+
     public void setConfirmDialog(String message, Listener listener){
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, message, "Confirmar cadastro", dialogButton);
@@ -105,8 +123,13 @@ public class MainFrame extends JFrame {
         validate();
         setHeader(name, group, login);
         setTotalQuery(totalQuery);
-        jPanel.add(new FilesPanel(listener, files));
+        filesPanel = new FilesPanel(listener, files);
+        jPanel.add(filesPanel);
         validate();
+    }
+
+    public void setNewFiles(String[][]files){
+        filesPanel.setData(files);
     }
 
     private void setHeader(String name, String group, String login){
@@ -121,6 +144,12 @@ public class MainFrame extends JFrame {
 
     private void setButtomAdmin(Listener listener){
         ButtomAdminPanel buttomAdminPanel = new ButtomAdminPanel(listener);
+        jPanel.add(buttomAdminPanel);
+    }
+
+    private void setButtomUser(Listener listener){
+        ButtomAdminPanel buttomAdminPanel = new ButtomAdminPanel(listener);
+        buttomAdminPanel.hideButton();
         jPanel.add(buttomAdminPanel);
     }
 
