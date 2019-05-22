@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Project03:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="" />
+    <list default="true" id="07b71e5e-dc17-4b56-9413-32f643c86da4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="585">
-              <caret line="447" lean-forward="true" selection-start-line="447" selection-end-line="447" />
+              <caret line="447" selection-start-line="447" selection-end-line="447" />
             </state>
           </provider>
         </entry>
@@ -80,16 +88,6 @@
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project03" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project03" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project03" type="462c0819:PsiDirectoryNode" />
-              <item name="Tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Project03" type="b2602c69:ProjectViewProjectNode" />
@@ -192,7 +190,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="816" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="DB Browser" />
       <window_info id="Project Explorer" weight="0.3297568" />
@@ -424,7 +421,7 @@
     <entry file="file://$PROJECT_DIR$/src/security/Authencation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
-          <caret line="447" lean-forward="true" selection-start-line="447" selection-end-line="447" />
+          <caret line="447" selection-start-line="447" selection-end-line="447" />
         </state>
       </provider>
     </entry>
@@ -434,10 +431,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>Project03:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
