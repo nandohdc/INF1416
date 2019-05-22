@@ -25,15 +25,15 @@ import java.util.HashMap;
 
 public class Main {
 
-    private static MainFrame mainFrame;
+    public static MainFrame mainFrame;
     private static Authencation auth = new Authencation();
     static String[][] strings;
+    private static boolean doubleClick = false;
 
     public static void main(String[] args) {
         new RegistryDAO(1001, null, null, null).save();
         mainFrame = MainFrame.getInstance();
         loadLoginView();
-//        loadAdminView(UserDAO.get("admin@inf1416.puc-rio.br"));
     }
 
     private static void loadLoginView() {
@@ -61,14 +61,15 @@ public class Main {
                 } else {
                     new RegistryDAO(2003, user, null, null).save();
                     new RegistryDAO(2002, user, null, null).save();
-                    loadPasswordView(user);
+                    loadPasswordView(user, false);
                 }
             }
         });
     }
 
-    private static void loadPasswordView(UserDAO user) {
-        new RegistryDAO(3001, user, null, null).save();
+    private static void loadPasswordView(UserDAO user, boolean again) {
+        if(!again)
+            new RegistryDAO(3001, user, null, null).save();
         mainFrame.setPassword(strings -> {
             if (!auth.SecondValidation(strings, user.getSalt(), user.getPassword())) {
                 mainFrame.showError("O Senha fornecida está incorreta.");
@@ -77,13 +78,14 @@ public class Main {
                 new RegistryDAO(3003 + user.getAttempt(), user, null, null).save();
                 if (3 - user.getAttempt() > 0) {//se o contador de senha for menor que 3
                     System.out.println("Faltam " + (3 - user.getAttempt()) + " tentativas");
-                    loadPasswordView(user);
+                    loadPasswordView(user, true);
                 } else {
                     new RegistryDAO(3007, user, null, null).save();
                     mainFrame.showError("Usuário bloqueado.");
                     user.setBlocked(true);
                     user.setTimeBlocked(dateToString(new Date()));
                     user.update();
+                    new RegistryDAO(3002, user, null, null).save();
                     loadLoginView();//voltar para primeira tela de login - email.
                 }
             } else {
@@ -92,17 +94,22 @@ public class Main {
                 System.out.println("A senha está correta");
                 user.setAttempt(0);
                 user.update();
-                loadSecretKeyView(user);
+                loadSecretKeyView(user, false);
             }
         });
     }
 
-    private static void loadSecretKeyView(UserDAO user) {
-        new RegistryDAO(4001, user, null, null).save();
+    private static void loadSecretKeyView(UserDAO user, boolean again) {
+        if(!again)
+            new RegistryDAO(4001, user, null, null).save();
         mainFrame.setSecretKey(strings -> {
+            if(strings.get(1).isEmpty()){
+                mainFrame.showError("caminho inválido");
+                return;
+            }
             if (user.getCertificate() != null && !user.getCertificate().trim().isEmpty()) {
 
-                if (!auth.ThirdValidation(strings.get(0), "Keys/user01-pkcs8-des.pem", getCertificatePublicKey(user.getCertificate()), user)) {
+                if (!auth.ThirdValidation(strings.get(0), strings.get(1), getCertificatePublicKey(user.getCertificate()), user)) {
                     //Se a verificação for negativa, o usuário deve ser apropriadamente avisado e
                     // o processo deve contabilizar um erro de verificação da chave privada,
                     // retornando para o início da terceira etapa
@@ -111,13 +118,14 @@ public class Main {
                     user.update();
                     if (3 - user.getAttempt() > 0) {//se o contador de senha for menor que 3
                         System.out.println("Faltam " + (3 - user.getAttempt()) + " tentativas");
-                        loadSecretKeyView(user);
+                        loadSecretKeyView(user, true);
                     } else {
                         new RegistryDAO(4007, user, null, null).save();
                         mainFrame.showError("Usuário bloqueado.");
                         user.setBlocked(true);
                         user.setTimeBlocked(dateToString(new Date()));
                         user.update();
+                        new RegistryDAO(4002, user, null, null).save();
                         loadLoginView();//voltar para primeira tela de login - email.
                     }
 
@@ -190,7 +198,11 @@ public class Main {
             if (strings1.get(0).equals("back")) {
                 new RegistryDAO(8002, userDAO, null, null).save();
                 strings = null;
-                loadAdminView(userDAO);
+                if(userDAO.getGroup().equals("Administrador")) {
+                    loadAdminView(userDAO);
+                } else{
+                    loadUserView(userDAO);
+                }
             } else if(strings1.get(0).equals("list")){
                 new RegistryDAO(8003, userDAO, null, null).save();
                 byte[] a = auth.VerifyFile(strings1.get(1) + "/" + "index", userDAO, false, null);
@@ -216,17 +228,19 @@ public class Main {
 
             } else {
                 int index = Integer.valueOf(strings1.get(1));
+                if(doubleClick){
+                    doubleClick = false;
+                    return;
+                } else{
+                    doubleClick = true;
+                }
                 new RegistryDAO(8010, userDAO, strings[index][0], null).save();
                 if(!strings[index][2].equals(userDAO.getLoginName()) && !strings[index][3].toLowerCase().equals(userDAO.getGroup().getName().toLowerCase())){
                     mainFrame.showError("Nao tem permissao para abrir");
                     new RegistryDAO(8012, userDAO, strings[index][0], null).save();
                 } else {
                     new RegistryDAO(8011, userDAO, strings[index][0], null).save();
-                    try {
-                        createFile(auth.VerifyFile(strings1.get(2) + "/" + strings[index][0], userDAO, true, strings[index][0]), strings1.get(2) + "/" + strings[index][1]);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    createFile(auth.VerifyFile(strings1.get(2) + "/" + strings[index][0], userDAO, true, strings[index][0]), strings1.get(2) + "/" + strings[index][1]);
                 }
             }
         });
@@ -463,12 +477,21 @@ public class Main {
         return sWriter.toString();
     }
 
-    private static boolean createFile(byte[] fileContent, String filename) throws FileNotFoundException {
+    private static boolean createFile(byte[] fileContent, String filename) {
+
+        if(fileContent == null){
+            System.out.println("[Error][Class:Main] O conteúdo do arquivo decriptado é nulo");
+            mainFrame.showError("Erro: Não possível decriptar o arquivo, pois seu conteúdo é nulo");
+            return false;
+        }
 
         try (FileOutputStream stream = new FileOutputStream(filename)) {
             stream.write(fileContent);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[Error][Class:Main][Func:createFile] Error ao criar arquivo, arquivo não encontrado.");
+            mainFrame.showError("Erro: Não possível encontrar o arquivo.");
+            return false;
         }
 
         return true;

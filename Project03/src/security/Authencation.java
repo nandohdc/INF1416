@@ -1,5 +1,6 @@
 package security;
 
+import main.Main;
 import model.RegistryDAO;
 import model.UserDAO;
 
@@ -23,7 +24,7 @@ public class Authencation {
 
     private String sd;
 
-    public Authencation(){
+    public Authencation() {
         this.setPrivateKey(null);
         this.setPublicKey(null);
         this.setSKey(null);
@@ -67,27 +68,27 @@ public class Authencation {
     }
 
 
-    public int getUserAttempts(){
+    public int getUserAttempts() {
         return this.userAttempts;
     }
 
-    public void setUserAttempts(int newUserAttempts){
+    public void setUserAttempts(int newUserAttempts) {
         this.userAttempts = newUserAttempts;
     }
 
 
-    private boolean emailAuthencation(String userEmail, String newDBEmail){
+    private boolean emailAuthencation(String userEmail, String newDBEmail) {
 
-        if(!userEmail.equals(newDBEmail)){
+        if (!userEmail.equals(newDBEmail)) {
             return false;
         }
         return true;
     }
 
 
-    public boolean FirstValidation(String emailCertificate, String newUserEmail){
-        if(!this.emailAuthencation(newUserEmail, emailCertificate)){
-            System.out.println("[First Validation] NOT OK -  emailCertificate: " + emailCertificate + " " + "newUserEmail: " +  newUserEmail);
+    public boolean FirstValidation(String emailCertificate, String newUserEmail) {
+        if (!this.emailAuthencation(newUserEmail, emailCertificate)) {
+            System.out.println("[First Validation] NOT OK -  emailCertificate: " + emailCertificate + " " + "newUserEmail: " + newUserEmail);
             return false;
 
         } else {
@@ -96,8 +97,8 @@ public class Authencation {
         }
     }
 
-    private static boolean PassowrdValidation(String newPassword){
-        if (!newPassword.matches("[0-9]+")|| newPassword.length() < 6 || newPassword.length() > 8){
+    private static boolean PassowrdValidation(String newPassword) {
+        if (!newPassword.matches("[0-9]+") || newPassword.length() < 6 || newPassword.length() > 8) {
             return false;
         } else {
             boolean crescente = true;
@@ -105,7 +106,7 @@ public class Authencation {
 
             for (int i = 0; i < newPassword.length() - 1; i++) {
                 char c = newPassword.charAt(i);
-                char cProx = newPassword.charAt(i+1);
+                char cProx = newPassword.charAt(i + 1);
 
                 if (Character.getNumericValue(cProx) != Character.getNumericValue(c) + 1) {
                     crescente = false;
@@ -113,7 +114,7 @@ public class Authencation {
                 if (Character.getNumericValue(cProx) != Character.getNumericValue(c) - 1) {
                     decrescente = false;
                 }
-                if (cProx == c ) {
+                if (cProx == c) {
                     return false;
                 }
             }
@@ -121,7 +122,7 @@ public class Authencation {
         }
     }
 
-    public static String TesteCalculateHexHashPassword(String newPassword, String newSalt){
+    public static String TesteCalculateHexHashPassword(String newPassword, String newSalt) {
 
         MessageDigest SHA1 = null;
         byte[] digestPassword = null;
@@ -136,7 +137,7 @@ public class Authencation {
         SHA1.update((newPassword + newSalt).getBytes());
         digestPassword = SHA1.digest();
 
-        if(digestPassword != null){
+        if (digestPassword != null) {
             StringBuffer buf = new StringBuffer();
 
             for (int i = 0; i < digestPassword.length; i++) {
@@ -148,9 +149,9 @@ public class Authencation {
         return null;
     }
 
-    public static String CalculateHexHashPassword(String newPassword, String newSalt){
+    public static String CalculateHexHashPassword(String newPassword, String newSalt) {
 
-        if(!PassowrdValidation(newPassword)){
+        if (!PassowrdValidation(newPassword)) {
             return null;
         }
 
@@ -167,7 +168,7 @@ public class Authencation {
         SHA1.update((newPassword + newSalt).getBytes());
         digestPassword = SHA1.digest();
 
-        if(digestPassword != null){
+        if (digestPassword != null) {
             StringBuffer buf = new StringBuffer();
 
             for (int i = 0; i < digestPassword.length; i++) {
@@ -179,20 +180,20 @@ public class Authencation {
         return null;
     }
 
-    public boolean SecondValidation(List<String> passwordsCombinations, String SaltDBPassword,String HashDBPassword){
-        Map<String,String> HashMapPassowrds = new HashMap<String,String>();
+    public boolean SecondValidation(List<String> passwordsCombinations, String SaltDBPassword, String HashDBPassword) {
+        Map<String, String> HashMapPassowrds = new HashMap<String, String>();
 
-        if(SaltDBPassword == null){
+        if (SaltDBPassword == null) {
             System.err.println("[ERROR][Class: Authencation] O Salt Fornecido possui valor nulo!");
             return false;
         }
 
-        if(SaltDBPassword.length() < 10){
+        if (SaltDBPassword.length() < 10) {
             System.err.println("[ERROR][Class: Authencation] O Salt Fornecido não tem o tamanho correto! " + "Tamanho: " + SaltDBPassword.length());
             return false;
         }
 
-        if(passwordsCombinations.size() == 0){
+        if (passwordsCombinations.size() == 0) {
             System.err.println("[ERROR][Class: Authencation] A lista de password está vazia! " + "Tamanho: " + passwordsCombinations.size());
             return false;
         }
@@ -201,15 +202,15 @@ public class Authencation {
             HashMapPassowrds.put(TesteCalculateHexHashPassword(password, SaltDBPassword), password);
         }
 
-        if(!HashMapPassowrds.containsKey(HashDBPassword)){
+        if (!HashMapPassowrds.containsKey(HashDBPassword)) {
             System.out.println("[Second Validation] NOT OK -> Hash not found -  HashCalculated: " + HashMapPassowrds.containsKey(HashDBPassword) + " " + "HashDBPassword: " + HashDBPassword);
             return false;
         }
-        System.out.println("[Second Validation] OK -  HashCalculated: " + HashMapPassowrds.containsKey(HashDBPassword)+ " " + "HashDBPassword: " + HashDBPassword);
+        System.out.println("[Second Validation] OK -  HashCalculated: " + HashMapPassowrds.containsKey(HashDBPassword) + " " + "HashDBPassword: " + HashDBPassword);
         return true;
     }
 
-    private byte[] readPEMFromFile(String newPath, Cipher cipher) throws IOException{
+    private byte[] readPEMFromFile(String newPath, Cipher cipher) throws IOException {
         byte[] cipherPemBytes = new byte[0];
 
         cipherPemBytes = Files.readAllBytes(Paths.get(newPath));
@@ -218,52 +219,48 @@ public class Authencation {
             byte[] pemB = cipher.doFinal(cipherPemBytes);
             return pemB;
         } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
+            System.err.println("[ERROR][Class: Authencation] IllegalBlockSize");
+            return null;
         } catch (BadPaddingException e) {
-            System.err.println("[ERROR][Class: Authencation] Bad Padding!" );
+            System.err.println("[ERROR][Class: Authencation] Bad Padding!");
             return null;
         }
-
-        return null;
     }
 
-    private KeyFactory getkeyFactory(String algorithm){
+    private KeyFactory getkeyFactory(String algorithm) {
         try {
             KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
             return keyFactory;
         } catch (NoSuchAlgorithmException e) {
             System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + algorithm);
-            System.exit(1);
+            return null;
         }
-        return null;
     }
 
-    private PrivateKey keyFactoryGeneratePrivate (KeyFactory newKeyFactory, PKCS8EncodedKeySpec newPkcs8EncodedKeySpec){
-        if(newKeyFactory != null){
+    private PrivateKey keyFactoryGeneratePrivate(KeyFactory newKeyFactory, PKCS8EncodedKeySpec newPkcs8EncodedKeySpec) {
+        if (newKeyFactory != null) {
             try {
                 PrivateKey pvk = newKeyFactory.generatePrivate(newPkcs8EncodedKeySpec);
                 return pvk;
             } catch (InvalidKeySpecException e) {
                 System.err.println("[ERROR][Class: Authencation] Invalid Key: " + newPkcs8EncodedKeySpec.toString());
-                System.exit(1);
+                return null;
             }
         }
         return null;
     }
 
-    private KeyGenerator getKeyGen (String algorithm){
+    private KeyGenerator getKeyGen(String algorithm) {
         try {
             KeyGenerator keyGen = KeyGenerator.getInstance(algorithm);
             return keyGen;
         } catch (NoSuchAlgorithmException e) {
             System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + algorithm);
-            System.exit(1);
+            return null;
         }
-
-        return null;
     }
 
-    private SecureRandom getSecureRandom (String algorithm) {
+    private SecureRandom getSecureRandom(String algorithm) {
         try {
             SecureRandom secureRandom = SecureRandom.getInstance(algorithm);
             return secureRandom;
@@ -311,13 +308,13 @@ public class Authencation {
 
                 } catch (NoSuchPaddingException e) {
                     System.err.println("[ERROR][Class: Authencation] Padding not found: " + "PKCS5Padding");
-                    System.exit(1);
+                    return null;
                 } catch (NoSuchAlgorithmException e) {
                     System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "DES");
-                    System.exit(1);
+                    return null;
                 } catch (InvalidKeyException e) {
                     System.err.println("[ERROR][Class: Authencation] Invalid Key: " + key.toString());
-                    System.exit(1);
+                    return null;
                 }
 
             }
@@ -327,7 +324,7 @@ public class Authencation {
     }
 
 
-    private boolean SignRandomMessage(String algorithm){
+    private boolean SignRandomMessage(String algorithm) {
         SecureRandom random = new SecureRandom();
         byte[] msg = new byte[2048];
 
@@ -346,57 +343,55 @@ public class Authencation {
             sign.initVerify(this.getPublicKey());
             sign.update(msg);
 
-            if(sign.verify(cipherMessage)) {
+            if (sign.verify(cipherMessage)) {
                 return true;
-            } else{
+            } else {
                 return false;
             }
 
         } catch (NoSuchAlgorithmException e) {
             System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + algorithm);
-            System.exit(1);
+            return false;
         } catch (InvalidKeyException e) {
-            System.err.println("[ERROR][Class: Authencation] Invalid Key: " );
-            System.exit(1);
+            System.err.println("[ERROR][Class: Authencation] Invalid Key: ");
+            return false;
         } catch (SignatureException e) {
-            System.err.println("[ERROR][Class: Authencation] Invalid Key: " );
-            System.exit(1);
-        }
-
-        return false;
-    }
-
-    public boolean ThirdValidation(String newSecret, String PathToPEM, PublicKey pbk, UserDAO userDAO){
-
-        if(newSecret == null){
-            System.err.println("[ERROR][Class: Authencation] Invalid secret!" );
+            System.err.println("[ERROR][Class: Authencation] Invalid Key: ");
             return false;
         }
 
-        if(PathToPEM == null){
+    }
+
+    public boolean ThirdValidation(String newSecret, String PathToPEM, PublicKey pbk, UserDAO userDAO) {
+
+        if (newSecret == null) {
+            System.err.println("[ERROR][Class: Authencation] Invalid secret!");
+            return false;
+        }
+
+        if (PathToPEM == null) {
             new RegistryDAO(4004, userDAO, null, null).save();
-            System.err.println("[ERROR][Class: Authencation] Invalid PathToPEM!" );
+            System.err.println("[ERROR][Class: Authencation] Invalid PathToPEM!");
             return false;
         }
         try {
             this.setPrivateKey(this.getprivateKey(newSecret, PathToPEM));
-        } catch (IOException e){
+        } catch (IOException e) {
             new RegistryDAO(4004, userDAO, null, null).save();
         }
 
-        if(this.getPrivateKey()!=null){
+        if (this.getPrivateKey() != null) {
             this.setPublicKey(pbk);//this.getCertificatePublicKey(certificate)
-            if(this.getPublicKey() != null){
-                if(this.SignRandomMessage("MD5withRSA")){
+            if (this.getPublicKey() != null) {
+                if (this.SignRandomMessage("MD5withRSA")) {
                     System.out.println("[Third Validation] OK - Signature verified!\n" + "Private Key: " + this.getPrivateKey() + "\n" + "Public Key: " + this.getPublicKey());
                     return true;
-                } else{
+                } else {
                     new RegistryDAO(4006, userDAO, null, null).save();
                     System.out.println("[Third Validation] NOT OK - Signature failed!");
                     return false;
                 }
-            }
-            else{
+            } else {
                 System.out.println("[Third Validation] NOT OK - Invalid Public Key!");
                 return false;
             }
@@ -406,18 +401,28 @@ public class Authencation {
         return false;
     }
 
-    public byte[] readFile(Path path){
+    public byte[] readFile(Path path) {
         try {
             return Files.readAllBytes(path);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[Error][Class:Authentication] readFile file not found" + path.getFileName());
+            return null;
         }
-
-        return null;
     }
 
+    public static String SaltGen() {
+        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        SecureRandom rand = new SecureRandom();
+        StringBuffer salt = new StringBuffer(10);
 
-    private SecureRandom SeedGen (String newSecureRandomAlgorithm, byte[] seed){
+        for (int i = 0; i < 10; i++) {
+            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
+        }
+
+        return salt.toString();
+    }
+
+    private SecureRandom SeedGen(String newSecureRandomAlgorithm, byte[] seed) {
 
         SecureRandom randomGen = null;
 
@@ -433,34 +438,38 @@ public class Authencation {
         return randomGen;
     }
 
-    private byte[] getSecretKey(String FilePath){
+    private byte[] getSecretKey(String FilePath) {
         Path path = Paths.get(FilePath + ".env");
         byte[] fileBytes = this.readFile(path);
 
-        if(fileBytes != null && this.getPrivateKey()!= null){
+        if (fileBytes != null && this.getPrivateKey() != null) {
             Cipher cipher = null;
             try {
                 cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
                 cipher.init(Cipher.DECRYPT_MODE, this.getPrivateKey());
                 cipher.update(fileBytes);
-                byte [] seed = cipher.doFinal();
+                byte[] seed = cipher.doFinal();
                 this.setSd(new String(seed));
 
                 return seed;
 
             } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authencation] Algorithm not found: " + "RSA/ECB/PKCS1Padding");
+                return null;
             } catch (NoSuchPaddingException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authencation] Padding not found.");
+                return null;
             } catch (InvalidKeyException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authencation] Invalid Private Key.");
             } catch (BadPaddingException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authencation] Bad Padding!");
+                return null;
             } catch (IllegalBlockSizeException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authencation] IllegalBlockSizeException");
+                return null;
             }
-
         }
+
         return null;
     }
 
@@ -482,15 +491,14 @@ public class Authencation {
 
                 if (key != null) {
                     Cipher cipher = null;
-                        cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-                        cipher.init(Cipher.DECRYPT_MODE, key);
+                    cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+                    cipher.init(Cipher.DECRYPT_MODE, key);
 
-                        byte[] encryptedFile = Files.readAllBytes(path);
+                    byte[] encryptedFile = Files.readAllBytes(path);
 
-                        byte[] fileContent = cipher.doFinal(encryptedFile);
+                    byte[] fileContent = cipher.doFinal(encryptedFile);
 
-                        return fileContent;
-
+                    return fileContent;
                 }
             }
 
@@ -498,7 +506,7 @@ public class Authencation {
         return null;
     }
 
-    private boolean SignatureVerification (String filePath, byte[] fileContent){
+    private boolean SignatureVerification(String filePath, byte[] fileContent, String algorithm) {
         Path path = Paths.get(filePath + ".asd");
 
         byte[] fileSignature = this.readFile(path);
@@ -506,17 +514,20 @@ public class Authencation {
         if (fileSignature != null) {
             Signature signature = null;
             try {
-                signature = Signature.getInstance("MD5withRSA");
+                signature = Signature.getInstance(algorithm);
                 signature.initVerify(this.getPublicKey());
                 signature.update(fileContent);
 
                 return signature.verify(fileSignature);
             } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authentication] Algorithm not found:  " + algorithm);
+                return false;
             } catch (SignatureException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authentication] Failed to verify signature. " + e.getMessage());
+                return false;
             } catch (InvalidKeyException e) {
-                e.printStackTrace();
+                System.err.println("[ERROR][Class: Authentication] Invalid Key  " + this.getPublicKey());
+                return false;
             }
         }
 
@@ -531,48 +542,53 @@ public class Authencation {
             byte[] fileContent = null;
             try {
                 fileContent = getFileContent(filePath);
-            }catch (Exception e){
-                if(!isArchive)
+            } catch (Exception e) {
+                if (!isArchive) {
+                    Main.mainFrame.showError("Falha na decriptação do arquivo de índice");
                     new RegistryDAO(8007, userDAO, null, null).save();
-                else
+                }
+                else {
+                    Main.mainFrame.showError("Falha na decriptação do arquivo.");
                     new RegistryDAO(8015, userDAO, name, null).save();
+                }
                 return null;
             }
-            if(!isArchive)
+            if (!isArchive) {
+                Main.mainFrame.showError("Arquivo de índice decriptado com sucesso.");
                 new RegistryDAO(8005, userDAO, null, null).save();
-            else
+            }
+            else {
+                Main.mainFrame.showError("Arquivo decriptado com sucesso");
                 new RegistryDAO(8013, userDAO, name, null).save();
+            }
             if (fileContent != null && this.getPublicKey() != null) {
 
-                if (!SignatureVerification(filePath, fileContent)) {
-                    if(!isArchive)
+                if (!SignatureVerification(filePath, fileContent, "MD5withRSA")) {
+                    if (!isArchive) {
+                        Main.mainFrame.showError("Falha na verificação (integridade e autenticidade) do arquivo de índice");
                         new RegistryDAO(8008, userDAO, null, null).save();
-                    else
+                    }
+                    else {
+                        Main.mainFrame.showError("Falha na verificação (integridade e autenticidade) do arquivo");
                         new RegistryDAO(8016, userDAO, name, null).save();
+                    }
                     return null;
                 }
-                if(!isArchive)
+                if (!isArchive) {
+                    Main.mainFrame.showError("Arquivo de índice verificado (integridade e autenticidade) com sucesso");
                     new RegistryDAO(8006, userDAO, null, null).save();
-                else
+                }
+                else {
+                    Main.mainFrame.showError("Arquivo verificado (integridade e autenticidade) com sucesso.");
                     new RegistryDAO(8014, userDAO, name, null).save();
+                }
                 return fileContent;
             }
-            System.out.println("[Error][Authentication] File is null");
+            Main.mainFrame.showError("O conteúdo do arquivo é nulo ou a chave privada é inválida.");
             return null;
         }
+        Main.mainFrame.showError("A chave secreta é nula.");
         new RegistryDAO(8004, userDAO, null, null).save();
         return null;
-    }
-
-    public static String SaltGen(){
-        String candidateChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        SecureRandom rand = new SecureRandom();
-        StringBuffer salt = new StringBuffer(10);
-
-        for (int i = 0; i < 10; i++) {
-            salt.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
-        }
-
-        return salt.toString();
     }
 }
